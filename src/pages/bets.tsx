@@ -1,23 +1,25 @@
 import { useLocation } from "preact-iso";
 import { useState, useEffect } from "preact/hooks";
-import { getBets } from "../lib/client";
+import { useBets } from "../api/queryHooks";
+import { useAuth } from "../../utils/auth-manager";
 
 export const Bets = () => {
   const location = useLocation();
-  const [cur, setCurr] = useState(undefined);
+  const { setAuth } = useAuth();
 
-  //   @ts-ignore
-  useEffect(async () => {
-    const kek = await getBets();
-    setCurr(kek);
-  }, []);
+  const { data, error, isError } = useBets();
+
+  if (isError && error.response.status === 401) {
+    localStorage.removeItem("TOKEN");
+    setAuth(false);
+  }
 
   return (
     <div>
       Список ставок дериктории:
       <ul>
-        {cur != null && cur.length > 0
-          ? cur.map((a) => (
+        {data != null && data.length > 0
+          ? data.map((a) => (
               <li
                 style={{
                   padding: "5px",

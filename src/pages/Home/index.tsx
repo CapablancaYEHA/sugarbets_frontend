@@ -9,7 +9,7 @@ export function Home() {
       <h1>Это главная. Здесь пока нет контента</h1>
       <div
         style={{ padding: "20px", margin: "20px 0 0 0", cursor: "pointer" }}
-        onClick={() => location.route("/bets")}
+        onClick={() => location.route("/")}
       >
         Перейти на страницу ставок
       </div>
