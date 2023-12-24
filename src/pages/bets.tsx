@@ -1,5 +1,5 @@
 import { useLocation } from "preact-iso";
-import { useState, useEffect } from "preact/hooks";
+import { useEffect } from "preact/hooks";
 import { useBets } from "../api/queryHooks";
 import { useAuth } from "../../utils/auth-manager";
 
@@ -9,18 +9,21 @@ export const Bets = () => {
 
   const { data, error, isError } = useBets();
 
-  if (isError && error.response.status === 401) {
-    localStorage.removeItem("TOKEN");
-    setAuth(false);
-  }
+  useEffect(() => {
+    if (isError && error?.response?.status === 401) {
+      localStorage.removeItem("TOKEN");
+      setAuth(false);
+    }
+  }, [isError, error?.response?.status]);
 
   return (
     <div>
       Список ставок дериктории:
       <ul>
-        {data != null && data.length > 0
+        {data != null && data?.length > 0
           ? data.map((a) => (
               <li
+                key={a.id}
                 style={{
                   padding: "5px",
                   cursor: "pointer",

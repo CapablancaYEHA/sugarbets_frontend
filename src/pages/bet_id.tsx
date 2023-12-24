@@ -2,7 +2,8 @@ import { NumericFormat } from "react-number-format";
 import { useState, useEffect } from "preact/hooks";
 import { useRoute } from "preact-iso";
 
-import socket from "../lib/ws_connection";
+//FIXME разобраться с функционалом
+// import socket from "../lib/ws_connection";
 import { findBet } from "../lib/client";
 
 export const Bet = () => {
@@ -16,37 +17,36 @@ export const Bet = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    socket.emit("betSubmit", {
-      betAmount: val,
-      betId: params.id,
-    });
+    // socket.emit("betSubmit", {
+    //   betAmount: val,
+    //   betId: params.id,
+    // });
   };
 
-  //   @ts-ignore
-  useEffect(async () => {
-    const kek = await findBet(params.id);
-    setCurr(kek);
-    socket.emit("betRoomJoin", {
-      betId: params.id,
-    });
-  }, []);
+  //   useEffect(async () => {
+  //     const kek = await findBet(params.id);
+  //     setCurr(kek);
+  //     socket.emit("betRoomJoin", {
+  //       betId: params.id,
+  //     });
+  //   }, []);
 
-  useEffect(() => {
-    socket.on("betUpdateResponse", (data) => {
-      setCurr((s) => ({
-        ...s,
-        betTotal: data.updatedValue,
-      }));
-    });
-  }, []);
+  //   useEffect(() => {
+  //     socket.on("betUpdateResponse", (data) => {
+  //       setCurr((s) => ({
+  //         ...s,
+  //         betTotal: data.updatedValue,
+  //       }));
+  //     });
+  //   }, []);
 
-  useEffect(() => {
-    return () => {
-      socket.emit("betLeave", {
-        betId: params.id,
-      });
-    };
-  }, []);
+  //   useEffect(() => {
+  //     return () => {
+  //       socket.emit("betLeave", {
+  //         betId: params.id,
+  //       });
+  //     };
+  //   }, []);
 
   return (
     <form style={{ display: "block" }} onSubmit={handleSubmit}>

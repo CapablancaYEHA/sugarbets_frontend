@@ -1,4 +1,5 @@
-import { createContext } from "preact";
+import { Context, createContext } from "preact";
+import { FC } from "preact/compat";
 import { useContext, useState } from "preact/hooks";
 
 interface IContext {
@@ -6,14 +7,14 @@ interface IContext {
   setAuth: (a: boolean) => void;
 }
 
-export const AuthContext: React.Context<IContext> = createContext({
+export const AuthContext: Context<IContext> = createContext({
   isAuth: false,
   setAuth: () => {},
 });
 
 export const useAuth = () => useContext(AuthContext);
 
-export const AuthProvider: React.FC = ({ children }) => {
+export const AuthProvider: FC = ({ children }) => {
   let token;
 
   const initialState = () => {

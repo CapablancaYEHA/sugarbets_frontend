@@ -1,9 +1,0 @@
-{
-    "apps": [
-        {
-            "name": "sugar_ui",
-            "script": "preview",
-            "args": "start"
-        }
-    ]
-}
