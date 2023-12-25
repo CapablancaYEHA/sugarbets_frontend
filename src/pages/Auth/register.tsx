@@ -9,6 +9,8 @@ import {
   Notification,
   Box,
   Title,
+  Text,
+  Anchor,
 } from "@mantine/core";
 
 import { useRegister } from "../../api/queryHooks";
@@ -39,6 +41,13 @@ export function Register() {
     <Box className={styles.wrap} component="section">
       <div>
         <Title order={2}>Регистрация</Title>
+        <Space h="md" />
+        <Text size="md">
+          Уже регистрировались?{" "}
+          <Anchor href="/login" underline="always">
+            Залогиньтесь
+          </Anchor>
+        </Text>
         <Space h="lg" />
         <TextInput
           {...register("userMail", {
@@ -106,7 +115,6 @@ export function Register() {
         <Space h="xl" />
         <Button
           variant="light"
-          color="pink"
           onClick={handleSubmit(onSubmit, undefined)}
           loading={isPending}
           fullWidth={false}

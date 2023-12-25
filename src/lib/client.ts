@@ -38,6 +38,17 @@ export const getBets = () => {
     .then((response) => response.data);
 };
 
+export const getTickets = (id: string) => {
+  const token = localStorage.getItem("TOKEN") || "";
+  return instance
+    .get(`/tickets?user=${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data);
+};
+
 export const findBet = (id: string) =>
   instance.get(`/bets/${id}`).then((response) => response.data);
 

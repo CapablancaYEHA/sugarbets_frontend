@@ -1,8 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { getBets, login, registerUser } from "../lib/client";
+import { getBets, getTickets, login, registerUser } from "../lib/client";
 import { IUserLoginRequest, IUserRegisterRequest } from "./interface";
-import { useAuth } from "../../utils/auth-manager";
 import { AxiosError } from "axios";
 
 export function useRegister() {
@@ -13,12 +12,25 @@ export function useRegister() {
 }
 
 export function useLogin() {
-  return useMutation<string, { message?: string }, IUserLoginRequest>({
+  return useMutation<
+    { token: string; userId: string },
+    { message?: string },
+    IUserLoginRequest
+  >({
     mutationFn: ({ mail, pass }) => login({ mail, pass }),
     mutationKey: ["login"],
+    retry: 1,
   });
 }
 
 export function useBets() {
   return useQuery<any, AxiosError>({ queryKey: ["bets"], queryFn: getBets });
+}
+
+export function useUserTickets(id: string, isFlag = false) {
+  return useQuery<number, AxiosError>({
+    queryKey: ["tickets", id],
+    queryFn: () => getTickets(id),
+    enabled: isFlag,
+  });
 }

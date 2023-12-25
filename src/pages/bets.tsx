@@ -25,7 +25,6 @@ export const Bets = () => {
               <li
                 key={a.id}
                 style={{
-                  padding: "5px",
                   cursor: "pointer",
                   textDecoration: "underline",
                 }}

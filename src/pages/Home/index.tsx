@@ -1,5 +1,4 @@
 import { useLocation } from "preact-iso";
-import "./style.css";
 
 export function Home() {
   const location = useLocation();

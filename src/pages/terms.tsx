@@ -4,10 +4,10 @@ export const Terms = () => {
   return (
     <Box
       component="section"
+      py="lg"
       style={{
         display: "block",
         margin: "0 auto",
-        padding: "32px 0",
       }}
     >
       <List type="ordered">

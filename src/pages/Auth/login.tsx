@@ -35,7 +35,8 @@ export function Login() {
       },
       {
         onSuccess: (res) => {
-          localStorage.setItem("TOKEN", res);
+          localStorage.setItem("TOKEN", res.token);
+          localStorage.setItem("USER", res.userId);
           setAuth(true);
           location.route("/");
         },
@@ -85,7 +86,6 @@ export function Login() {
         <Space h="xl" />
         <Button
           variant="light"
-          color="pink"
           onClick={handleSubmit(onSubmit, undefined)}
           loading={isPending}
           fullWidth={false}

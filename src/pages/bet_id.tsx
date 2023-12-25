@@ -50,7 +50,7 @@ export const Bet = () => {
 
   return (
     <form style={{ display: "block" }} onSubmit={handleSubmit}>
-      {cur != null ? (
+      {/* {cur != null ? (
         <div style={{ margin: "0 0 32px 0" }}>
           <span style={{ display: "block" }}>Отображается ставка</span>
           <span style={{ display: "block" }}>
@@ -72,7 +72,7 @@ export const Bet = () => {
         thousandSeparator={" "}
         placeholder={0}
       />
-      <button type="submit">Отправить ставку</button>
+      <button type="submit">Отправить ставку</button> */}
     </form>
   );
 };
