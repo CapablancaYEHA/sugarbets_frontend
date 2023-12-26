@@ -59,17 +59,26 @@ export const login = ({ mail, pass }) =>
 
 export const initPayment = (id: string) =>
   axios
-    .post("https://yoomoney.ru/quickpay/confirm", {
-      receiver: import.meta.env.VITE_YM_WALLET,
-      label: id,
-      "quickpay-form": "button",
-      sum: 2.0,
-      paymentType: "AC",
-      successURL: `${window.origin}/`,
-    })
+    .post(
+      "https://yoomoney.ru/quickpay/confirm",
+      {
+        receiver: "4100118483492189",
+        label: id,
+        "quickpay-form": "button",
+        sum: 2.0,
+        paymentType: "AC",
+        successURL: `${window.origin}/`,
+      },
+      {
+        timeout: 4000,
+        signal: controller.signal,
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      }
+    )
     .then((response) => {
-      if (response.request.responseURL.includes("error?reason")) {
+      const { responseURL } = response.request;
+      if (responseURL.includes("error?reason")) {
         throw { message: "Ошибка инициализации платежа" };
       }
-      return response.data;
+      window.location.href = response.request.responseURL;
     });
