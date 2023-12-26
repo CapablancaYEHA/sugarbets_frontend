@@ -57,6 +57,14 @@ export const login = ({ mail, pass }) =>
     .post("/auth/login", { mail, pass })
     .then((response) => response.data);
 
+export const forceUrl = (id: string) =>
+  (window.location.href = `https://yoomoney.ru/quickpay/confirm?receiver=4100118483492189
+&quickpay-form=button
+&successURL=${`${window.origin}/`}/
+&paymentType=AC
+&sum=2
+&label=${id!}`);
+
 export const initPayment = (id: string) =>
   axios
     .post(

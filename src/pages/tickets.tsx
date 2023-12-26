@@ -14,6 +14,7 @@ import { useEffect } from "preact/hooks";
 
 import { useAuth } from "../../utils/auth-manager";
 import { useInitPayment, useUserTickets } from "../api/queryHooks";
+import { forceUrl } from "../lib/client";
 
 export const Tickets = () => {
   const { userId, setAuth } = useAuth();
@@ -95,7 +96,7 @@ export const Tickets = () => {
           <Button
             variant="filled"
             fullWidth={false}
-            onClick={() => mutate(userId!)}
+            onClick={() => forceUrl(userId!)}
             style={{ width: "min-content" }}
           >
             Получить тикет
