@@ -1,6 +1,12 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { getBets, getTickets, login, registerUser } from "../lib/client";
+import {
+  getBets,
+  getTickets,
+  initPayment,
+  login,
+  registerUser,
+} from "../lib/client";
 import { IUserLoginRequest, IUserRegisterRequest } from "./interface";
 import { AxiosError } from "axios";
 
@@ -32,5 +38,13 @@ export function useUserTickets(id: string, isFlag = false) {
     queryKey: ["tickets", id],
     queryFn: () => getTickets(id),
     enabled: isFlag,
+  });
+}
+
+export function useInitPayment() {
+  return useMutation<any, { message?: string }, string>({
+    mutationFn: (id) => initPayment(id),
+    mutationKey: ["yoomoney"],
+    retry: 1,
   });
 }

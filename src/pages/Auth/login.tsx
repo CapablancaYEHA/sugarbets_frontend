@@ -45,8 +45,8 @@ export function Login() {
   };
 
   return (
-    <Box className={styles.wrap} component="section">
-      <div>
+    <Box className={styles.wrap}>
+      <form id="form_login" onSubmit={handleSubmit(onSubmit, undefined)}>
         <Title order={2}>Вход</Title>
         <Space h="md" />
         <Text size="md">
@@ -86,10 +86,10 @@ export function Login() {
         <Space h="xl" />
         <Button
           variant="light"
-          onClick={handleSubmit(onSubmit, undefined)}
           loading={isPending}
           fullWidth={false}
           style={{ alignSelf: "center", width: "min-content" }}
+          type="submit"
         >
           Войти
         </Button>
@@ -104,7 +104,7 @@ export function Login() {
             {error?.message}
           </Notification>
         ) : null}
-      </div>
+      </form>
     </Box>
   );
 }

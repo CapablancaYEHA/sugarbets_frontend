@@ -30,13 +30,13 @@ export const AuthProvider: FC = ({ children }) => {
   const [isAuth, setAuth] = useState(initialState);
   const [userId, setUser] = useState<string | undefined>(undefined);
   const updater = (arg) => setAuth(arg);
+  const userString = localStorage.getItem("USER") || "";
 
   useEffect(() => {
-    const userString = localStorage.getItem("USER") || "";
     if (userString) {
       setUser(userString);
     }
-  }, []);
+  }, [userString]);
 
   return (
     <AuthContext.Provider

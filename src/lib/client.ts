@@ -1,9 +1,4 @@
-import axios, {
-  AxiosRequestConfig,
-  AxiosResponse,
-  AxiosError,
-  AxiosInstance,
-} from "axios";
+import axios from "axios";
 
 export const isDev = () => import.meta.env.DEV;
 const url = isDev()
@@ -14,7 +9,7 @@ const controller = new AbortController();
 
 const instance = axios.create({
   baseURL: url,
-  timeout: 3000,
+  timeout: 4000,
   signal: controller.signal,
 });
 
@@ -61,3 +56,20 @@ export const login = ({ mail, pass }) =>
   instance
     .post("/auth/login", { mail, pass })
     .then((response) => response.data);
+
+export const initPayment = (id: string) =>
+  axios
+    .post("https://yoomoney.ru/quickpay/confirm", {
+      receiver: import.meta.env.VITE_YM_WALLET,
+      label: id,
+      "quickpay-form": "button",
+      sum: 2.0,
+      paymentType: "AC",
+      successURL: `${window.origin}/`,
+    })
+    .then((response) => {
+      if (response.request.responseURL.includes("error?reason")) {
+        throw { message: "Ошибка инициализации платежа" };
+      }
+      return response.data;
+    });

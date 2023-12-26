@@ -16,6 +16,7 @@ module.exports = {
   rules: {
     "max-lines": 0,
     // OFF
+    "no-throw-literal": "off",
     "react/jsx-props-no-spreading": "off",
     "newline-before-return": "off",
     "import/order": "off",

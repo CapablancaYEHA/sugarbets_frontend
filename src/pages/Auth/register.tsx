@@ -39,7 +39,7 @@ export function Register() {
 
   return (
     <Box className={styles.wrap} component="section">
-      <div>
+      <form id="form_register" onSubmit={handleSubmit(onSubmit, undefined)}>
         <Title order={2}>Регистрация</Title>
         <Space h="md" />
         <Text size="md">
@@ -115,7 +115,7 @@ export function Register() {
         <Space h="xl" />
         <Button
           variant="light"
-          onClick={handleSubmit(onSubmit, undefined)}
+          type="submit"
           loading={isPending}
           fullWidth={false}
           style={{ alignSelf: "center", width: "min-content" }}
@@ -133,7 +133,7 @@ export function Register() {
             {error?.message}
           </Notification>
         ) : null}
-      </div>
+      </form>
     </Box>
   );
 }
