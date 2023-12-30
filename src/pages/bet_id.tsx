@@ -1,20 +1,7 @@
-import { NumericFormat } from "react-number-format";
-import { useState, useEffect } from "preact/hooks";
-import { useRoute } from "preact-iso";
-
 //FIXME разобраться с функционалом
 // import socket from "../lib/ws_connection";
-import { findBet } from "../lib/client";
 
 export const Bet = () => {
-  const { params } = useRoute();
-  const [val, setVal] = useState(0);
-  const [cur, setCurr] = useState(undefined);
-
-  const handleInput = (values) => {
-    setVal(parseInt(values.value ?? "") || 0);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // socket.emit("betSubmit", {

@@ -1,0 +1,37 @@
+.box {
+  max-width: 100%;
+  width: 100%;
+  padding: 8px 24px;
+  border-radius: 8px;
+  box-shadow: var(--mantine-shadow-md);
+  transition: box-shadow 0.4s linear;
+
+  & > button {
+    display: block;
+    margin-left: auto;
+  }
+
+  &:hover {
+    box-shadow: 0 0.0625rem 0.1875rem var(--mantine-color-base-1),
+      var(--mantine-color-base-1) 0 1.25rem 1.5625rem -0.3125rem,
+      var(--mantine-color-base-1) 0 0.625rem 0.625rem -0.3125rem;
+  }
+
+  & > section {
+    max-width: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    gap: 32px;
+
+    & > div {
+      & > img {
+        margin: 0 auto;
+      }
+      &:nth-child(1),
+      &:nth-child(3) {
+        align-self: center;
+      }
+    }
+  }
+}

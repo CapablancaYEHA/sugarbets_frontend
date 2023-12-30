@@ -2,7 +2,8 @@ import { Box, Title, Button } from "@mantine/core";
 
 import { useAuth } from "../../../utils/auth-manager";
 import styles from "./styles.module.scss";
-import logo from "./logo.png";
+import logo from "../../assets/logo.png";
+import { headerLinks } from "./const";
 
 export function Header() {
   const { isAuth } = useAuth();
@@ -16,8 +17,8 @@ export function Header() {
     <Box bg="base.5" component="header" h="72" px="xl" className={styles.wrap}>
       <div>
         <a href="/" className={styles.logo}>
-          <img src={logo} alt="logo" />{" "}
-          <Title c="white" order={2}>
+          <img src={logo} alt="logo" />
+          <Title c="white" order={3}>
             {"Sugarbets".toUpperCase()}
           </Title>
         </a>
@@ -27,8 +28,21 @@ export function Header() {
               width: "100%",
               display: "flex",
               justifyContent: "flex-end",
+              gap: "24px",
             }}
           >
+            {headerLinks.map((l) => (
+              <Button
+                component="a"
+                href={l.href}
+                variant="subtle"
+                color="white"
+                fullWidth={false}
+                key={`${l.href}_${l.name}`}
+              >
+                {l.name}
+              </Button>
+            ))}
             <Button
               variant="subtle"
               color="white"

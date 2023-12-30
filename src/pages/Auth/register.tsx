@@ -1,17 +1,18 @@
 import { useForm } from "react-hook-form";
 import { useLocation } from "preact-iso";
+import { useEffect } from "preact/hooks";
 import {
   Button,
   Checkbox,
   PasswordInput,
   Space,
   TextInput,
-  Notification,
   Box,
   Title,
   Text,
   Anchor,
 } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 
 import { useRegister } from "../../api/queryHooks";
 import styles from "./styles.module.scss";
@@ -36,6 +37,18 @@ export function Register() {
       { onSuccess: () => location.route("/login") }
     );
   };
+
+  useEffect(() => {
+    if (isError) {
+      notifications.show({
+        title: "Что-то пошло не так",
+        message: error?.message,
+        color: "red",
+        autoClose: 3000,
+        withBorder: true,
+      });
+    }
+  }, [isError, error]);
 
   return (
     <Box className={styles.wrap} component="section">
@@ -122,17 +135,6 @@ export function Register() {
         >
           Создать аккаунт
         </Button>
-        <Space h="lg" />
-        {isError ? (
-          <Notification
-            color="red"
-            title="Что-то пошло не так"
-            withBorder
-            withCloseButton={false}
-          >
-            {error?.message}
-          </Notification>
-        ) : null}
       </form>
     </Box>
   );

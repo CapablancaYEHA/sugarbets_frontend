@@ -2,22 +2,26 @@ import { render } from "preact";
 import { MantineProvider, Box } from "@mantine/core";
 import { LocationProvider, Router, Route } from "preact-iso";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { Notifications } from "@mantine/notifications";
 
-import { NotFound } from "./pages/_404.jsx";
-import { Register } from "./pages/Auth/register.js";
-import { Login } from "./pages/Auth/login.js";
-import { Bet } from "./pages/bet_id.js";
-import { Terms } from "./pages/terms.js";
 import { queryClient } from "./api/instance.js";
 import { AuthProvider } from "../utils/auth-manager.js";
 import { ProtectedRoute } from "./components/route.js";
 import { Header } from "./components/navs/Header.js";
 import { Footer } from "./components/navs/Footer.js";
+import { NotFound } from "./pages/_404.jsx";
+import { Register } from "./pages/Auth/register.js";
+import { Login } from "./pages/Auth/login.js";
+import { Terms } from "./pages/terms.js";
+import { Info } from "./pages/info.js";
+import { Tickets } from "./pages/Tickets/index.js";
+import { Events } from "./pages/Events/index.js";
+import { EventId } from "./pages/Event_Id/index.js";
 
 import { theme } from "../styles/theme.js";
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 import "../styles/global.scss";
-import { Tickets } from "./pages/tickets.js";
 
 export function App() {
   return (
@@ -25,14 +29,18 @@ export function App() {
       <AuthProvider>
         <LocationProvider>
           <MantineProvider theme={theme}>
+            <Notifications />
             <Header />
             <Box bg="white" component="main" px="xl">
               <Router>
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
                 <Route path="/terms" component={Terms} />
+                <Route path="/info" component={Info} />
                 <ProtectedRoute path="/" component={Tickets} />
-                <ProtectedRoute path="/bets/:id" component={Bet} />
+                <ProtectedRoute path="/events" component={Events} />
+                <ProtectedRoute path="/events/:id" component={EventId} />
+                {/* <ProtectedRoute path="/bets/:id" component={Bet} /> */}
                 <Route default component={NotFound} />
               </Router>
             </Box>

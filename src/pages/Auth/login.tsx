@@ -11,10 +11,12 @@ import {
   Text,
   Anchor,
 } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 
 import { useLogin } from "../../api/queryHooks";
 import { useAuth } from "../../../utils/auth-manager";
 import styles from "./styles.module.scss";
+import { useEffect } from "preact/hooks";
 
 export function Login() {
   const location = useLocation();
@@ -38,11 +40,23 @@ export function Login() {
           localStorage.setItem("TOKEN", res.token);
           localStorage.setItem("USER", res.userId);
           setAuth(true);
-          location.route("/");
+          setTimeout(() => location.route("/"), 300);
         },
       }
     );
   };
+
+  useEffect(() => {
+    if (isError) {
+      notifications.show({
+        title: "Что-то пошло не так",
+        message: error?.message,
+        color: "red",
+        autoClose: 3000,
+        withBorder: true,
+      });
+    }
+  }, [isError, error]);
 
   return (
     <Box className={styles.wrap}>
@@ -70,7 +84,7 @@ export function Login() {
         <PasswordInput
           {...register("userPass", {
             required: true,
-            min: 8,
+            minLength: 8,
           })}
           required
           label="Пароль"
@@ -93,17 +107,6 @@ export function Login() {
         >
           Войти
         </Button>
-        <Space h="lg" />
-        {isError ? (
-          <Notification
-            color="red"
-            title="Что-то пошло не так"
-            withBorder
-            withCloseButton={false}
-          >
-            {error?.message}
-          </Notification>
-        ) : null}
       </form>
     </Box>
   );
