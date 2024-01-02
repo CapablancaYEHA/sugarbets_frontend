@@ -6,6 +6,7 @@ import {
   LoadingOverlay,
   Button,
   Pill,
+  Highlight,
 } from "@mantine/core";
 import { useEffect } from "preact/hooks";
 import { notifications } from "@mantine/notifications";
@@ -33,7 +34,7 @@ export const Tickets = () => {
           title: "Тикеты",
           message: error?.message,
           color: "red",
-          autoClose: 3000,
+          autoClose: 5000,
           withBorder: true,
         });
       }
@@ -92,6 +93,18 @@ export const Tickets = () => {
         </>
       ) : null}
       <Space h="lg" />
+      <Text size="xs" pt="xs">
+        <Highlight
+          highlight={["Доната", "Тикетов"]}
+          highlightStyles={(theme) => ({
+            background: theme.colors.base[1],
+            color: "black",
+          })}
+        >
+          *После перевода Доната вы будете возвращены на данную страницу.
+          Информация о количестве Тикетов обновляется не сразу.
+        </Highlight>
+      </Text>
       <Text
         size="xs"
         pt="xs"

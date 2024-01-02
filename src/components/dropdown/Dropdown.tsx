@@ -35,8 +35,8 @@ export const Dropdown: FC<IProp> = ({ items, id, onSelect, error }) => {
   const [value, setValue] = useState<string | null>(null);
 
   const options = items
-    .filter((item) =>
-      item.nick.toLowerCase().includes(search.toLowerCase().trim())
+    ?.filter((item) =>
+      item?.nick?.toLowerCase().includes(search?.toLowerCase()?.trim())
     )
     .map((item) => (
       <Combobox.Option value={item.nick} key={`${item.nick}_${item.country}`}>

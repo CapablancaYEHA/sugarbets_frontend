@@ -11,11 +11,11 @@ export interface IPlayersResponse {
   country: string;
 }
 
-type JsonObject<T> = { [K in keyof T]: T[K] extends Json<T> ? T[K] : never };
-type Json<T> = boolean | number | string | null | Array<JsonObject<T>>;
-
+type IPrizePool = {
+  [key: string]: number;
+};
 export interface IEventsResponse {
-  betsArray: string[]; // айдишники ставок
+  betsArray?: string[]; // айдишники ставок
   eventTitle: string;
   games: string[] | null;
   innerId: string;
@@ -23,6 +23,7 @@ export interface IEventsResponse {
   startDate: string; // "2023-12-27T13:00:00.000Z"
   org?: string;
   info?: string;
+  prizePool: IPrizePool;
 }
 
 export interface ICreateBetReq {

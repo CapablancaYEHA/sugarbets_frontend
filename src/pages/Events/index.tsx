@@ -32,7 +32,7 @@ export const Events = () => {
     <Box className={styles.wrapper} component="section" py="lg">
       <Title order={2}>Эвенты</Title>
       <Space h="lg" />
-      <Title order={3}>Активные</Title>
+      <Title order={4}>Активные</Title>
       <Space h="md" />
       {currEvents.length ? (
         currEvents.map((a) => <EventPreview key={a.innerId} ev={a} />)
@@ -40,7 +40,7 @@ export const Events = () => {
         <Text size="md">Нет активных Эвентов</Text>
       )}
       <Space h="xl" />
-      <Title order={3}>Предстоящие</Title>
+      <Title order={4}>Предстоящие</Title>
       <Space h="md" />
       {comingEvents.length ? (
         comingEvents.map((a) => (
@@ -53,7 +53,7 @@ export const Events = () => {
       )}
 
       <Box mt="auto">
-        <Title order={3}>Архив событий</Title>
+        <Title order={4}>Архив событий</Title>
         <Space h="md" />
         {pastEvents.length ? (
           pastEvents.map((a) => (

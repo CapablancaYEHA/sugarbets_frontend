@@ -19,9 +19,9 @@ import { Events } from "./pages/Events/index.js";
 import { EventId } from "./pages/Event_Id/index.js";
 
 import { theme } from "../styles/theme.js";
+import "../styles/global.scss";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
-import "../styles/global.scss";
 
 export function App() {
   return (
@@ -40,7 +40,6 @@ export function App() {
                 <ProtectedRoute path="/" component={Tickets} />
                 <ProtectedRoute path="/events" component={Events} />
                 <ProtectedRoute path="/events/:id" component={EventId} />
-                {/* <ProtectedRoute path="/bets/:id" component={Bet} /> */}
                 <Route default component={NotFound} />
               </Router>
             </Box>

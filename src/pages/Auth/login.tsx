@@ -52,7 +52,7 @@ export function Login() {
         title: "Что-то пошло не так",
         message: error?.message,
         color: "red",
-        autoClose: 3000,
+        autoClose: 5000,
         withBorder: true,
       });
     }

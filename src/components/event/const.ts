@@ -7,7 +7,6 @@ import logoOrgCup from "../../assets/logo_org_cup.png";
 
 export const logoByGame = {
   T8: logoT8,
-  //   default: logoDummy,
 };
 
 export const logoByOrg = {
@@ -50,63 +49,17 @@ export const schema = yup
   .required();
 
 export const showDate = (a: string) =>
-  format(a ?? 0, "eeee, d MMMM y", { locale: ru });
+  format(a ?? 0, "d MMMM y", { locale: ru });
 
-//   {
-//     1: yup
-//       .string()
-//       .notOneOf(
-//         refArr.filter((a, ind) => ind !== 0),
-//         "Не должны совпадать"
-//       )
-//       .required("Required"),
-//     2: yup
-//       .string()
-//       .notOneOf(
-//         refArr.filter((a, ind) => ind !== 1),
-//         "Не должны совпадать"
-//       )
-//       .required("Required"),
-//     3: yup
-//       .string()
-//       .notOneOf(
-//         refArr.filter((a, ind) => ind !== 2),
-//         "Не должны совпадать"
-//       )
-//       .required("Required"),
-//     4: yup
-//       .string()
-//       .notOneOf(
-//         refArr.filter((a, ind) => ind !== 3),
-//         "Не должны совпадать"
-//       )
-//       .required("Required"),
-//     5: yup
-//       .string()
-//       .notOneOf(
-//         refArr.filter((a, ind) => ind !== 4),
-//         "Не должны совпадать"
-//       )
-//       .required("Required"),
-//     6: yup
-//       .string()
-//       .notOneOf(
-//         refArr.filter((a, ind) => ind !== 5),
-//         "Не должны совпадать"
-//       )
-//       .required("Required"),
-//     7: yup
-//       .string()
-//       .notOneOf(
-//         refArr.filter((a, ind) => ind !== 6),
-//         "Не должны совпадать"
-//       )
-//       .required("Required"),
-//     8: yup
-//       .string()
-//       .notOneOf(
-//         refArr.filter((a, ind) => ind !== 7),
-//         "Не должны совпадать"
-//       )
-//       .required("Required"),
-//   }
+const sbtKeysToDel = ["game", "5", "6", "7", "8"];
+export const prepSbt = (smtDt: any) => {
+  const five = [smtDt["5"], smtDt["6"]].sort();
+  const seven = [smtDt["7"], smtDt["8"]].sort();
+  let final = {
+    ...smtDt,
+    56: five,
+    78: seven,
+  };
+  sbtKeysToDel.forEach((k) => delete final[k]);
+  return JSON.stringify(final);
+};

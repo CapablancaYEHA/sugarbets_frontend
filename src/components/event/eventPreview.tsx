@@ -28,7 +28,7 @@ export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
         </Stack>
         <div>
           <Image
-            src={logoByGame[ev.games?.[0] ?? "default"]}
+            src={logoByGame[ev.games?.[0] ?? ""]}
             fallbackSrc="https://placehold.co/440x120?text=No_games"
           />
         </div>

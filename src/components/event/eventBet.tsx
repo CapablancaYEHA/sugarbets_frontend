@@ -13,7 +13,7 @@ import { notifications } from "@mantine/notifications";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useCreateBet, usePlayers } from "../../api/queryHooks";
-import { betDraftArr, schema, tableTdByIndex } from "./const";
+import { betDraftArr, prepSbt, schema, tableTdByIndex } from "./const";
 import { Dropdown } from "../dropdown/Dropdown";
 
 interface IProp {
@@ -37,23 +37,30 @@ export const EventBet: FC<IProp> = ({ opened, close, eventId }) => {
 
   const onSubmit = (sbmtData) => {
     const { game } = sbmtData;
-    let final = { ...sbmtData };
-    delete final["game"];
     mutate(
       {
-        betBody: JSON.stringify(final),
+        betBody: prepSbt(sbmtData),
         game,
         userId: userString,
         eventId,
       },
       {
-        onSuccess: () => console.log("Все успешно"),
+        onSuccess: () => {
+          onClose();
+          notifications.show({
+            title: "Успешно",
+            message: "Ставка принята",
+            color: "green",
+            autoClose: 5000,
+            withBorder: true,
+          });
+        },
         onError: (e) =>
           notifications.show({
             title: "Ставка не принята",
             message: e?.message,
             color: "red",
-            autoClose: 3000,
+            autoClose: 5000,
             withBorder: true,
           }),
       }

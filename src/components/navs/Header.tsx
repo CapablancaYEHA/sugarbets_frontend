@@ -18,7 +18,7 @@ export function Header() {
       <div>
         <a href="/" className={styles.logo}>
           <img src={logo} alt="logo" />
-          <Title c="white" order={3}>
+          <Title c="white" order={4}>
             {"Sugarbets".toUpperCase()}
           </Title>
         </a>
