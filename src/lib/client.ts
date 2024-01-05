@@ -22,17 +22,6 @@ instance.interceptors.response.use(undefined, function (error) {
   return Promise.reject(res);
 });
 
-export const getBets = () => {
-  const token = localStorage.getItem("TOKEN") || "";
-  return instance
-    .get("/bets", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data);
-};
-
 export const getEvents = () => {
   const token = localStorage.getItem("TOKEN") || "";
   return instance

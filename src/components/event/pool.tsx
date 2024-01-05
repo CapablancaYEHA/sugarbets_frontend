@@ -12,7 +12,7 @@ export const Pool = ({ amount, game }) => {
     <Stack style={{ flex: "0 1 200px" }}>
       <Image
         src={logoByGame[game]}
-        fallbackSrc="https://placehold.co/440x120?text=No_games"
+        fallbackSrc="https://placehold.co/440x120?text=Game_logo"
       />
       <Title order={1} c="base.5" ta="center">
         <animated.span>

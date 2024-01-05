@@ -14,8 +14,8 @@ export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
         <div>
           <Image
             src={logoByOrg[ev.org ?? ""]}
-            w="88"
-            fallbackSrc="https://placehold.co/300x300?text=No_logo"
+            fallbackSrc="https://placehold.co/300x300?text=Organisator"
+            maw={88}
           />
         </div>
         <Stack>
@@ -29,7 +29,7 @@ export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
         <div>
           <Image
             src={logoByGame[ev.games?.[0] ?? ""]}
-            fallbackSrc="https://placehold.co/440x120?text=No_games"
+            fallbackSrc="https://placehold.co/440x120?text=Game_logo"
           />
         </div>
       </section>

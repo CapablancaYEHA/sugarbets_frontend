@@ -2,7 +2,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import {
   createBet,
-  getBets,
   getEvent,
   getEvents,
   getPlayers,
@@ -25,6 +24,7 @@ export function useRegister() {
   return useMutation<string, { message?: string }, IUserRegisterRequest>({
     mutationFn: ({ name, mail, pass }) => registerUser({ name, mail, pass }),
     mutationKey: ["register"],
+    retry: 1,
   });
 }
 
@@ -38,10 +38,6 @@ export function useLogin() {
     mutationKey: ["login"],
     retry: 1,
   });
-}
-
-export function useBets() {
-  return useQuery<any[], AxiosError>({ queryKey: ["bets"], queryFn: getBets });
 }
 
 export function useCreateBet() {

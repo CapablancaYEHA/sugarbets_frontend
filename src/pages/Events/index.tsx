@@ -5,7 +5,7 @@ import { useEvents } from "../../api/queryHooks";
 import { useAuth } from "../../../utils/auth-manager";
 import { EventPreview } from "../../components/event/eventPreview";
 import { isEventComing, isEventStarted, sortByAsc } from "./utils";
-
+import { EventOneLine } from "../../components/event/eventOneLine";
 import styles from "./styles.module.scss";
 
 export const Events = () => {
@@ -16,10 +16,7 @@ export const Events = () => {
   const sorted = (data ?? [])?.sort(sortByAsc);
   const pastEvents = sorted?.filter((a) => !a.isActive);
   const currEvents = sorted?.filter(isEventStarted);
-  const comingEvents = sorted?.filter(isEventComing).map((c) => ({
-    ...c,
-    isComing: true,
-  }));
+  const comingEvents = sorted?.filter(isEventComing);
 
   useEffect(() => {
     if (isError && error?.response?.status === 401) {
@@ -43,11 +40,7 @@ export const Events = () => {
       <Title order={4}>Предстоящие</Title>
       <Space h="md" />
       {comingEvents.length ? (
-        comingEvents.map((a) => (
-          <a key={a.innerId} href={`/events/${a.innerId}`}>
-            🎄 {a.eventTitle}
-          </a>
-        ))
+        comingEvents.map((a) => <EventOneLine key={a.innerId} ev={a} />)
       ) : (
         <Text size="md">Нет предстоящих</Text>
       )}
@@ -56,11 +49,7 @@ export const Events = () => {
         <Title order={4}>Архив событий</Title>
         <Space h="md" />
         {pastEvents.length ? (
-          pastEvents.map((a) => (
-            <a key={a.innerId} href={`/events/${a.innerId}`}>
-              ❄️ {a.eventTitle}
-            </a>
-          ))
+          pastEvents.map((a) => <EventOneLine key={a.innerId} ev={a} />)
         ) : (
           <Text size="md">Нет Эвентов в архиве</Text>
         )}

@@ -1,18 +1,31 @@
-import { Stack, Text } from "@mantine/core";
+import { Stack, Text, Image, Group, Title, Space } from "@mantine/core";
 import { FC } from "preact/compat";
 
-import { showDate } from "./const";
+import { logoByOrg, showDate } from "./const";
 import { IEventsResponse } from "../../api/interface";
 
 export const EventFull: FC<{ ev: IEventsResponse }> = ({ ev }) => {
   return (
-    <Stack>
-      <Text size="md" fw={500}>
-        {showDate(ev.startDate)}
-      </Text>
-      <Text size="sm" c="gray.6">
-        {ev.info ?? ""}
-      </Text>
-    </Stack>
+    <>
+      <Title order={2} c="base.5">
+        Эвент
+      </Title>
+      <Space h="lg" />
+      <Stack align="center" gap="xl">
+        <Image
+          src={logoByOrg[ev.org ?? ""]}
+          w="88"
+          fallbackSrc="https://placehold.co/300x300?text=Organisator"
+        />
+        <Group wrap="nowrap" grow>
+          <Text size="xl" ta="center" fw={500} style={{ whiteSpace: "nowrap" }}>
+            {showDate(ev.startDate)}
+          </Text>
+          <Text size="md" c="gray.6">
+            {ev.info ?? "Нет организаторской информации"}
+          </Text>
+        </Group>
+      </Stack>
+    </>
   );
 };

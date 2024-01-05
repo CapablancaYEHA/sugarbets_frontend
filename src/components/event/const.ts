@@ -13,6 +13,11 @@ export const logoByOrg = {
   getToCup: logoOrgCup,
 };
 
+export const titleByGame = {
+  T8: "Tekken 8",
+  SF6: "Street Fighter 6",
+};
+
 export const betDraftArr: string[] = new Array(8).fill("");
 export const tableTdByIndex = {
   1: 1,
