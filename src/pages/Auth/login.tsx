@@ -1,22 +1,21 @@
 import { useForm } from "react-hook-form";
+import { useEffect } from "preact/hooks";
 import { useLocation } from "preact-iso";
 import {
   Button,
   PasswordInput,
   Space,
   TextInput,
-  Notification,
   Box,
   Title,
   Text,
   Anchor,
 } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 
 import { useLogin } from "../../api/queryHooks";
 import { useAuth } from "../../../utils/auth-manager";
+import { notif } from "../../../utils/notif";
 import styles from "./styles.module.scss";
-import { useEffect } from "preact/hooks";
 
 export function Login() {
   const location = useLocation();
@@ -48,13 +47,7 @@ export function Login() {
 
   useEffect(() => {
     if (isError) {
-      notifications.show({
-        title: "Что-то пошло не так",
-        message: error?.message,
-        color: "red",
-        autoClose: 5000,
-        withBorder: true,
-      });
+      notif({ c: "red", t: "Что-то пошло не так", m: error?.message });
     }
   }, [isError, error]);
 

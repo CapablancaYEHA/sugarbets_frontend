@@ -1,16 +1,14 @@
-import { useEffect } from "preact/hooks";
+import { Fragment } from "preact/compat";
 import { Box, Title, LoadingOverlay, Space, Text } from "@mantine/core";
 
 import { useEvents } from "../../api/queryHooks";
-import { useAuth } from "../../../utils/auth-manager";
 import { EventPreview } from "../../components/event/eventPreview";
-import { isEventComing, isEventStarted, sortByAsc } from "./utils";
 import { EventOneLine } from "../../components/event/eventOneLine";
+import { isEventComing, isEventStarted, sortByAsc } from "./utils";
+import { useLogout } from "../../../utils/useLogout";
 import styles from "./styles.module.scss";
 
 export const Events = () => {
-  const { setAuth } = useAuth();
-
   const { data, error, isError, isPending } = useEvents();
 
   const sorted = (data ?? [])?.sort(sortByAsc);
@@ -18,12 +16,7 @@ export const Events = () => {
   const currEvents = sorted?.filter(isEventStarted);
   const comingEvents = sorted?.filter(isEventComing);
 
-  useEffect(() => {
-    if (isError && error?.response?.status === 401) {
-      localStorage.removeItem("TOKEN");
-      setAuth(false);
-    }
-  }, [isError, error?.response?.status]);
+  useLogout(isError, error);
 
   return (
     <Box className={styles.wrapper} component="section" py="lg">
@@ -32,7 +25,12 @@ export const Events = () => {
       <Title order={4}>Активные</Title>
       <Space h="md" />
       {currEvents.length ? (
-        currEvents.map((a) => <EventPreview key={a.innerId} ev={a} />)
+        currEvents.map((a, ind) => (
+          <Fragment key={a.innerId}>
+            <EventPreview ev={a} />
+            {ind !== currEvents.length - 1 ? <Space h="lg" /> : null}
+          </Fragment>
+        ))
       ) : (
         <Text size="md">Нет активных Эвентов</Text>
       )}
@@ -44,6 +42,7 @@ export const Events = () => {
       ) : (
         <Text size="md">Нет предстоящих</Text>
       )}
+      <Space h="xl" />
 
       <Box mt="auto">
         <Title order={4}>Архив событий</Title>

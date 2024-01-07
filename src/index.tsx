@@ -6,7 +6,7 @@ import { Notifications } from "@mantine/notifications";
 
 import { queryClient } from "./api/instance.js";
 import { AuthProvider } from "../utils/auth-manager.js";
-import { ProtectedRoute } from "./components/route.js";
+import { AdminRoute, ProtectedRoute } from "./components/route.js";
 import { Header } from "./components/navs/Header.js";
 import { Footer } from "./components/navs/Footer.js";
 import { NotFound } from "./pages/_404.jsx";
@@ -17,6 +17,7 @@ import { Info } from "./pages/info.js";
 import { Tickets } from "./pages/Tickets/index.js";
 import { Events } from "./pages/Events/index.js";
 import { EventId } from "./pages/Event_Id/index.js";
+import { Manage } from "./pages/Manage/index.js";
 
 import { theme } from "../styles/theme.js";
 import "../styles/global.scss";
@@ -40,6 +41,7 @@ export function App() {
                 <ProtectedRoute path="/" component={Tickets} />
                 <ProtectedRoute path="/events" component={Events} />
                 <ProtectedRoute path="/events/:id" component={EventId} />
+                <AdminRoute path="/manage" component={Manage} />
                 <Route default component={NotFound} />
               </Router>
             </Box>

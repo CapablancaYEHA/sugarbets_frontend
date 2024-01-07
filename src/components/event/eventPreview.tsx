@@ -5,6 +5,7 @@ import { Image, Stack, Text, Button } from "@mantine/core";
 import { IEventsResponse } from "../../api/interface";
 import { logoByGame, logoByOrg, showDate } from "./const";
 import styles from "./styles.module.scss";
+import { Carousel } from "../embla/carousel";
 
 export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
   const location = useLocation();
@@ -27,10 +28,14 @@ export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
           </Text>
         </Stack>
         <div>
-          <Image
-            src={logoByGame[ev.games?.[0] ?? ""]}
-            fallbackSrc="https://placehold.co/440x120?text=Game_logo"
-          />
+          {ev.games?.length === 1 ? (
+            <Image
+              src={logoByGame[ev.games?.[0] ?? ""]}
+              fallbackSrc="https://placehold.co/440x120?text=Game_logo"
+            />
+          ) : (
+            <Carousel images={ev.games?.map((a) => logoByGame[a])} />
+          )}
         </div>
       </section>
       <Button

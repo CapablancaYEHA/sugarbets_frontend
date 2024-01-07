@@ -8,10 +8,3 @@ export const footLinks = [
     href: "/terms",
   },
 ];
-
-export const headerLinks = [
-  {
-    name: "Эвенты",
-    href: "/events",
-  },
-];

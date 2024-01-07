@@ -12,8 +12,7 @@ import {
   Text,
   Anchor,
 } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
-
+import { notif } from "../../../utils/notif";
 import { useRegister } from "../../api/queryHooks";
 import styles from "./styles.module.scss";
 
@@ -40,13 +39,7 @@ export function Register() {
 
   useEffect(() => {
     if (isError) {
-      notifications.show({
-        title: "Что-то пошло не так",
-        message: error?.message,
-        color: "red",
-        autoClose: 5000,
-        withBorder: true,
-      });
+      notif({ c: "red", t: "Что-то пошло не так", m: error?.message });
     }
   }, [isError, error]);
 

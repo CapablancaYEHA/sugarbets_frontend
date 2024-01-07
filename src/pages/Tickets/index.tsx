@@ -9,46 +9,34 @@ import {
   Highlight,
 } from "@mantine/core";
 import { useEffect } from "preact/hooks";
-import { notifications } from "@mantine/notifications";
 
 import { useAuth } from "../../../utils/auth-manager";
-import { useInitPayment, useUserTickets } from "../../api/queryHooks";
+import { useInitPayment, useProfile } from "../../api/queryHooks";
+import { notif } from "../../../utils/notif";
+import { useLogout } from "../../../utils/useLogout";
 import { EventTool, TicketTool } from "./const";
 
 export const Tickets = () => {
-  const { userId, setAuth } = useAuth();
-  const { data, error, isError, isSuccess, isPending } = useUserTickets(
+  const { userId } = useAuth();
+
+  const { data, error, isError, isSuccess, isPending } = useProfile(
     userId!,
-    !!userId
+    Boolean(userId)
   );
 
   const { mutate, isError: payIsErr } = useInitPayment();
 
+  useLogout(isError, error);
+
   useEffect(() => {
-    if (isError) {
-      if (error?.response?.status === 401) {
-        localStorage.removeItem("TOKEN");
-        setAuth(false);
-      } else {
-        notifications.show({
-          title: "Тикеты",
-          message: error?.message,
-          color: "red",
-          autoClose: 5000,
-          withBorder: true,
-        });
-      }
+    if (isError && error?.response?.status !== 401) {
+      notif({ c: "red", m: error?.message, t: "Тикеты" });
     }
   }, [isError, error]);
 
   useEffect(() => {
     if (payIsErr) {
-      notifications.show({
-        message: "Не удалось перейти на страницу оплаты",
-        color: "red",
-        autoClose: 3000,
-        withBorder: true,
-      });
+      notif({ c: "red", m: "Не удалось перейти на страницу оплаты" });
     }
   }, [payIsErr]);
 
@@ -69,7 +57,7 @@ export const Tickets = () => {
       {isSuccess ? (
         <>
           <Text size="lg">
-            У вас {data} <TicketTool />
+            У вас {data.tickets} <TicketTool />
           </Text>
           <Space h="md" />
           <Text size="md">

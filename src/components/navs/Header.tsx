@@ -1,17 +1,12 @@
-import { Box, Title, Button } from "@mantine/core";
+import { Box, Title } from "@mantine/core";
 
 import { useAuth } from "../../../utils/auth-manager";
 import styles from "./styles.module.scss";
 import logo from "../../assets/logo.png";
-import { headerLinks } from "./const";
+import { HeadMenu } from "./headMenu";
 
 export function Header() {
-  const { isAuth } = useAuth();
-
-  const logout = () => {
-    localStorage.removeItem("TOKEN");
-    window.location.reload();
-  };
+  const { isAuth, userId } = useAuth();
 
   return (
     <Box bg="base.5" component="header" h="72" px="xl" className={styles.wrap}>
@@ -31,26 +26,7 @@ export function Header() {
               gap: "24px",
             }}
           >
-            {headerLinks.map((l) => (
-              <Button
-                component="a"
-                href={l.href}
-                variant="subtle"
-                color="white"
-                fullWidth={false}
-                key={`${l.href}_${l.name}`}
-              >
-                {l.name}
-              </Button>
-            ))}
-            <Button
-              variant="subtle"
-              color="white"
-              onClick={logout}
-              fullWidth={false}
-            >
-              Выйти
-            </Button>
+            <HeadMenu id={userId!} />
           </nav>
         ) : null}
       </div>

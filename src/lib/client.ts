@@ -14,13 +14,23 @@ const instance = axios.create({
 });
 
 // FIXME
-// здесь в итоге надо какой-то более полноценный объект собирать
+// здесь в итоге надо какой-то более полноценный объект собирать?
 instance.interceptors.response.use(undefined, function (error) {
   const res =
     error.response?.data?.message != null ? error.response?.data : error;
 
   return Promise.reject(res);
 });
+
+export const registerUser = ({ name, mail, pass }) =>
+  instance
+    .post("/auth/register", { name, mail, pass })
+    .then((response) => response.data);
+
+export const login = ({ mail, pass }) =>
+  instance
+    .post("/auth/login", { mail, pass })
+    .then((response) => response.data);
 
 export const getEvents = () => {
   const token = localStorage.getItem("TOKEN") || "";
@@ -33,10 +43,10 @@ export const getEvents = () => {
     .then((response) => response.data);
 };
 
-export const getTickets = (id: string) => {
+export const getProfile = (id: string) => {
   const token = localStorage.getItem("TOKEN") || "";
   return instance
-    .get(`/tickets?user=${id}`, {
+    .get(`/profile?user=${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -44,19 +54,8 @@ export const getTickets = (id: string) => {
     .then((response) => response.data);
 };
 
-export const getPlayers = () => {
-  const token = localStorage.getItem("TOKEN") || "";
-  return instance
-    .get("/players", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data);
-};
-
-export const findBet = (id: string) =>
-  instance.get(`/bets/${id}`).then((response) => response.data);
+export const getPlayers = (game: string) =>
+  instance.get(`/players?game=${game}`).then((response) => response.data);
 
 export const getEvent = (id: string) => {
   const token = localStorage.getItem("TOKEN") || "";
@@ -69,49 +68,38 @@ export const getEvent = (id: string) => {
     .then((response) => response.data);
 };
 
-export const registerUser = ({ name, mail, pass }) =>
-  instance
-    .post("/auth/register", { name, mail, pass })
+export const createBet = ({ betBody, game, userId, eventId }) => {
+  const token = localStorage.getItem("TOKEN") || "";
+  return instance
+    .post(
+      "/bets",
+      { betBody, game, userId, eventId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
     .then((response) => response.data);
+};
 
-export const createBet = ({ betBody, game, userId, eventId }) =>
-  instance
-    .post("/bets", { betBody, game, userId, eventId })
+export const closeEvent = ({ betBody, game, eventId }) => {
+  const token = localStorage.getItem("TOKEN") || "";
+  return instance
+    .post(
+      "/events/close",
+      { betBody, game, eventId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
     .then((response) => response.data);
+};
 
-export const login = ({ mail, pass }) =>
-  instance
-    .post("/auth/login", { mail, pass })
-    .then((response) => response.data);
-
+// FIXME нужно ли тут завязываться на Bearer ?
 export const initPayment = (id: string, returnUri = `${window.origin}`) =>
   instance
     .post("/payment", { id, returnUri })
     .then((response) => response.data);
-
-// export const initPayment = (id: string) =>
-//   axios
-//     .post(
-//       "https://yoomoney.ru/quickpay/confirm",
-//       {
-//         receiver: "4100118483492189",
-//         label: id,
-//         "quickpay-form": "button",
-//         sum: 2.0,
-//         paymentType: "AC",
-//         successURL: `${window.origin}/`,
-//       },
-//       {
-//         timeout: 4000,
-//         signal: controller.signal,
-//         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//       }
-//     )
-//     .then((response) => {
-//       const { responseURL } = response.request;
-//       if (responseURL.includes("error?reason")) {
-//         throw { message: "Ошибка инициализации платежа" };
-//       }
-//       console.log("response.request.responseURL", response.request.responseURL);
-//       window.location.href = response.request.responseURL;
-//     });

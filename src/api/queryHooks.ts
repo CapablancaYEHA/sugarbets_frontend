@@ -1,19 +1,22 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import {
+  closeEvent,
   createBet,
   getEvent,
   getEvents,
   getPlayers,
-  getTickets,
+  getProfile,
   initPayment,
   login,
   registerUser,
 } from "../lib/client";
 import {
+  ICloseEventReq,
   ICreateBetReq,
   IEventsResponse,
   IPlayersResponse,
+  IProfile,
   IUserLoginRequest,
   IUserRegisterRequest,
 } from "./interface";
@@ -56,25 +59,35 @@ export function useEvents() {
   });
 }
 
-export function useSingleEvent(id: string) {
+export function useSingleEvent(id: string, isFlag = true) {
   return useQuery<IEventsResponse, AxiosError<{ message?: string }>>({
     queryKey: ["event", id],
     queryFn: () => getEvent(id),
-  });
-}
-
-export function usePlayers() {
-  return useQuery<IPlayersResponse[], AxiosError>({
-    queryKey: ["players"],
-    queryFn: getPlayers,
-  });
-}
-
-export function useUserTickets(id: string, isFlag = false) {
-  return useQuery<number, AxiosError>({
-    queryKey: ["tickets", id],
-    queryFn: () => getTickets(id),
     enabled: isFlag,
+  });
+}
+
+export function usePlayers(game) {
+  return useQuery<IPlayersResponse[], AxiosError<{ message?: string }>>({
+    queryKey: ["players", game],
+    queryFn: () => getPlayers(game),
+  });
+}
+
+export function useProfile(id: string, isFlag: boolean) {
+  return useQuery<IProfile, AxiosError<{ message?: string }>>({
+    queryKey: ["profile", id],
+    queryFn: () => getProfile(id),
+    enabled: isFlag,
+  });
+}
+
+export function useCloseEvent() {
+  return useMutation<string, { message?: string }, ICloseEventReq>({
+    mutationFn: ({ betBody, game, eventId }) =>
+      closeEvent({ betBody, game, eventId }),
+    mutationKey: ["events", "close"],
+    retry: 1,
   });
 }
 

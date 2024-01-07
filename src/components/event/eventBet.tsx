@@ -1,5 +1,5 @@
 import { FC } from "preact/compat";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import {
   Modal,
   Button,
@@ -8,27 +8,37 @@ import {
   Space,
   Text,
   Radio,
+  Group,
 } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { useCreateBet, usePlayers } from "../../api/queryHooks";
-import { betDraftArr, prepSbt, schema, tableTdByIndex } from "./const";
 import { Dropdown } from "../dropdown/Dropdown";
+import { usePlayers } from "../../api/queryHooks";
+import { betDraftArr, schema, tableTdByIndex, titleByGame } from "./const";
 
 interface IProp {
   opened: boolean;
   close: () => void;
-  eventId: string;
+  sbmtCallback: (arg: any) => void;
+  title?: string;
+  loading?: boolean;
+  games: string[] | null;
 }
-export const EventBet: FC<IProp> = ({ opened, close, eventId }) => {
-  const userString = localStorage.getItem("USER") || "";
-  const { data, isSuccess, isPending } = usePlayers();
-  const { mutate } = useCreateBet();
+export const EventBet: FC<IProp> = ({
+  opened,
+  close,
+  sbmtCallback,
+  title = "Ставка на топ8",
+  loading,
+  games,
+}) => {
   const { register, handleSubmit, control, reset } = useForm({
     resolver: yupResolver(schema),
     defaultValues: { game: "T8" },
   });
+  const curGame = useWatch({ control, name: "game", defaultValue: "T8" });
+
+  const { data, isSuccess, isPending } = usePlayers(curGame);
 
   const onClose = () => {
     reset();
@@ -36,35 +46,7 @@ export const EventBet: FC<IProp> = ({ opened, close, eventId }) => {
   };
 
   const onSubmit = (sbmtData) => {
-    const { game } = sbmtData;
-    mutate(
-      {
-        betBody: prepSbt(sbmtData),
-        game,
-        userId: userString,
-        eventId,
-      },
-      {
-        onSuccess: () => {
-          onClose();
-          notifications.show({
-            title: "Успешно",
-            message: "Ставка принята",
-            color: "green",
-            autoClose: 5000,
-            withBorder: true,
-          });
-        },
-        onError: (e) =>
-          notifications.show({
-            title: "Ставка не принята",
-            message: e?.message,
-            color: "red",
-            autoClose: 5000,
-            withBorder: true,
-          }),
-      }
-    );
+    sbmtCallback(sbmtData);
   };
 
   return (
@@ -73,7 +55,7 @@ export const EventBet: FC<IProp> = ({ opened, close, eventId }) => {
       onClose={onClose}
       title={
         <Text size="lg" fw="500">
-          Ставка на топ8
+          {title}
         </Text>
       }
       centered
@@ -82,14 +64,19 @@ export const EventBet: FC<IProp> = ({ opened, close, eventId }) => {
       {isPending ? <Loader /> : null}
       {isSuccess ? (
         <>
-          <Radio
-            {...register("game", {
-              required: true,
-            })}
-            label="Tekken 8"
-            value="T8"
-            size="xs"
-          />
+          <Group>
+            {games?.map((g, ind) => (
+              <Radio
+                {...register("game", {
+                  required: true,
+                })}
+                key={`${g}_${ind}`}
+                label={titleByGame[g]}
+                value={g}
+                size="xs"
+              />
+            ))}
+          </Group>
           <Space h="lg" />
           <Table striped>
             <Table.Thead>
@@ -132,7 +119,7 @@ export const EventBet: FC<IProp> = ({ opened, close, eventId }) => {
           <Button
             variant="light"
             onClick={handleSubmit(onSubmit, undefined)}
-            loading={isPending}
+            loading={isPending || loading}
             fullWidth={false}
             style={{
               width: "min-content",

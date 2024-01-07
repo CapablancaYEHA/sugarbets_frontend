@@ -6,6 +6,16 @@ export interface IUserRegisterRequest extends IUserLoginRequest {
   name: string;
 }
 
+export interface IProfile {
+  userName: string;
+  userMail: string;
+  tickets: number;
+  innerId: string;
+  betsArray?: string[];
+  paymentsArray?: string[];
+  role: "user" | "admin";
+}
+
 export interface IPlayersResponse {
   nick: string;
   country: string;
@@ -17,7 +27,7 @@ type IPrizePool = {
 export interface IEventsResponse {
   betsArray?: string[]; // айдишники ставок
   eventTitle: string;
-  games: string[] | null;
+  games: string[];
   innerId: string;
   isActive: boolean;
   startDate: string; // "2023-12-27T13:00:00.000Z"
@@ -26,9 +36,12 @@ export interface IEventsResponse {
   prizePool: IPrizePool;
 }
 
-export interface ICreateBetReq {
+export interface ICloseEventReq {
   betBody: string; //json string всего объекта из формы
   game: string;
-  userId: string;
   eventId: string;
+}
+
+export interface ICreateBetReq extends ICloseEventReq {
+  userId: string;
 }

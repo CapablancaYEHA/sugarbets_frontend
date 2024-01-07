@@ -3,10 +3,12 @@ import { ru } from "date-fns/locale";
 import * as yup from "yup";
 
 import logoT8 from "../../assets/logo_t8.png";
+import logoSF6 from "../../assets/logo_sf6.png";
 import logoOrgCup from "../../assets/logo_org_cup.png";
 
 export const logoByGame = {
   T8: logoT8,
+  SF6: logoSF6,
 };
 
 export const logoByOrg = {
@@ -55,16 +57,3 @@ export const schema = yup
 
 export const showDate = (a: string) =>
   format(a ?? 0, "d MMMM y", { locale: ru });
-
-const sbtKeysToDel = ["game", "5", "6", "7", "8"];
-export const prepSbt = (smtDt: any) => {
-  const five = [smtDt["5"], smtDt["6"]].sort();
-  const seven = [smtDt["7"], smtDt["8"]].sort();
-  let final = {
-    ...smtDt,
-    56: five,
-    78: seven,
-  };
-  sbtKeysToDel.forEach((k) => delete final[k]);
-  return JSON.stringify(final);
-};

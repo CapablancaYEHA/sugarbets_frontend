@@ -9,11 +9,14 @@ export const Pool = ({ amount, game }) => {
   });
 
   return (
-    <Stack style={{ flex: "0 1 200px" }}>
-      <Image
-        src={logoByGame[game]}
-        fallbackSrc="https://placehold.co/440x120?text=Game_logo"
-      />
+    <Stack style={{ flex: "0 1 200px" }} justify="end">
+      <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
+        <Image
+          src={logoByGame[game]}
+          fallbackSrc="https://placehold.co/440x120?text=Game_logo"
+        />
+      </div>
+
       <Title order={1} c="base.5" ta="center">
         <animated.span>
           {number.to((n) => Number(n.toFixed(0)).toLocaleString("en-US"))}
