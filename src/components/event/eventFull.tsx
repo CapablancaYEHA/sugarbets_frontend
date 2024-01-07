@@ -8,7 +8,7 @@ export const EventFull: FC<{ ev: IEventsResponse }> = ({ ev }) => {
   return (
     <>
       <Title order={2} c="base.5">
-        Эвент
+        Ивент
       </Title>
       <Space h="lg" />
       <Stack align="center" gap="xl">
@@ -18,10 +18,10 @@ export const EventFull: FC<{ ev: IEventsResponse }> = ({ ev }) => {
           fallbackSrc="https://placehold.co/300x300?text=Organisator"
         />
         <Group wrap="nowrap" grow>
-          <Text size="xl" ta="center" fw={500} style={{ whiteSpace: "nowrap" }}>
+          <Text size="xl" ta="right" fw={500} style={{ whiteSpace: "nowrap" }}>
             {showDate(ev.startDate)}
           </Text>
-          <Text size="md" c="gray.6">
+          <Text size="md" c="gray.6" style={{ userSelect: "text" }}>
             {ev.info ?? "Нет организаторской информации"}
           </Text>
         </Group>

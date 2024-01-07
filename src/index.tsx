@@ -9,6 +9,7 @@ import { AuthProvider } from "../utils/auth-manager.js";
 import { AdminRoute, ProtectedRoute } from "./components/route.js";
 import { Header } from "./components/navs/Header.js";
 import { Footer } from "./components/navs/Footer.js";
+import { ErrorBoundary } from "./components/errBoundary/errorBoundary.component.js";
 import { NotFound } from "./pages/_404.jsx";
 import { Register } from "./pages/Auth/register.js";
 import { Login } from "./pages/Auth/login.js";
@@ -30,22 +31,24 @@ export function App() {
       <AuthProvider>
         <LocationProvider>
           <MantineProvider theme={theme}>
-            <Notifications />
-            <Header />
-            <Box bg="white" component="main" px="xl">
-              <Router>
-                <Route path="/register" component={Register} />
-                <Route path="/login" component={Login} />
-                <Route path="/terms" component={Terms} />
-                <Route path="/info" component={Info} />
-                <ProtectedRoute path="/" component={Tickets} />
-                <ProtectedRoute path="/events" component={Events} />
-                <ProtectedRoute path="/events/:id" component={EventId} />
-                <AdminRoute path="/manage" component={Manage} />
-                <Route default component={NotFound} />
-              </Router>
-            </Box>
-            <Footer />
+            <ErrorBoundary>
+              <Notifications />
+              <Header />
+              <Box bg="white" component="main" px="xl">
+                <Router>
+                  <Route path="/register" component={Register} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/terms" component={Terms} />
+                  <Route path="/info" component={Info} />
+                  <ProtectedRoute path="/" component={Tickets} />
+                  <ProtectedRoute path="/events" component={Events} />
+                  <ProtectedRoute path="/events/:id" component={EventId} />
+                  <AdminRoute path="/manage" component={Manage} />
+                  <Route default component={NotFound} />
+                </Router>
+              </Box>
+              <Footer />
+            </ErrorBoundary>
           </MantineProvider>
         </LocationProvider>
       </AuthProvider>

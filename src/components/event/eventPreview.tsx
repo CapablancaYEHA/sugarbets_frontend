@@ -24,7 +24,7 @@ export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
             {showDate(ev.startDate)}
           </Text>
           <Text size="sm" c="gray.6">
-            {ev.info ?? ""}
+            {ev.info ?? "Нет организаторской информации"}
           </Text>
         </Stack>
         <div>
@@ -44,7 +44,7 @@ export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
         mt="xl"
         onClick={() => location.route(`/events/${ev.innerId}`)}
       >
-        К эвенту
+        К ивенту
       </Button>
     </div>
   );

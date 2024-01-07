@@ -17,20 +17,20 @@ export const EventTool = () => (
   <HoverCard width={280} shadow="md">
     <HoverCard.Target>
       <Pill bg="base.7" c="white">
-        Эвенту
+        Ивенту
       </Pill>
     </HoverCard.Target>
     <HoverCard.Dropdown>
       <Text size="xs">
         <Highlight
-          highlight={["Эвент", "Тикетов"]}
+          highlight={["Ивент", "Тикетов"]}
           highlightStyles={(theme) => ({
             background: theme.colors.base[3],
             color: "white",
           })}
         >
           Участие в ставках на дисциплину возможно, пока длится соответствующий
-          Эвент. Заполняете карточку предсказания и заявляете её. Подавать
+          Ивент. Заполняете карточку предсказания и заявляете её. Подавать
           заявки можно эквивалентно числу ваших Тикетов
         </Highlight>
       </Text>

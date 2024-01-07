@@ -15,6 +15,7 @@ import {
   ICloseEventReq,
   ICreateBetReq,
   IEventsResponse,
+  IPlayersReq,
   IPlayersResponse,
   IProfile,
   IUserLoginRequest,
@@ -67,10 +68,10 @@ export function useSingleEvent(id: string, isFlag = true) {
   });
 }
 
-export function usePlayers(game) {
+export function usePlayers(game, locale) {
   return useQuery<IPlayersResponse[], AxiosError<{ message?: string }>>({
-    queryKey: ["players", game],
-    queryFn: () => getPlayers(game),
+    queryKey: ["players", game, locale],
+    queryFn: () => getPlayers(game, locale),
   });
 }
 

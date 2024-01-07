@@ -20,7 +20,7 @@ export const Events = () => {
 
   return (
     <Box className={styles.wrapper} component="section" py="lg">
-      <Title order={2}>Эвенты</Title>
+      <Title order={2}>Ивенты</Title>
       <Space h="lg" />
       <Title order={4}>Активные</Title>
       <Space h="md" />
@@ -32,7 +32,7 @@ export const Events = () => {
           </Fragment>
         ))
       ) : (
-        <Text size="md">Нет активных Эвентов</Text>
+        <Text size="md">Нет активных Ивентов</Text>
       )}
       <Space h="xl" />
       <Title order={4}>Предстоящие</Title>
@@ -50,7 +50,7 @@ export const Events = () => {
         {pastEvents.length ? (
           pastEvents.map((a) => <EventOneLine key={a.innerId} ev={a} />)
         ) : (
-          <Text size="md">Нет Эвентов в архиве</Text>
+          <Text size="md">Нет Ивентов в архиве</Text>
         )}
       </Box>
       <LoadingOverlay

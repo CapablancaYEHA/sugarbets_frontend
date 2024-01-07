@@ -28,7 +28,7 @@ export const EventId = () => {
 
   useEffect(() => {
     if (isError && error?.response?.status !== 401) {
-      notif({ c: "red", m: error?.message, t: "Проблема запроса эвента" });
+      notif({ c: "red", m: error?.message, t: "Проблема запроса ивента" });
     }
   }, [isError, error]);
 
@@ -54,7 +54,7 @@ export const EventId = () => {
     );
   };
 
-  //   FIXME Тут не хватает условия запуска хуков и сокетов по активности эвента
+  //   FIXME Тут не хватает условия запуска хуков и сокетов по активности ивента
   useEffect(() => {
     if (isSuccess) {
       setPrize(
@@ -105,15 +105,16 @@ export const EventId = () => {
             sbmtCallback={handleSubmit}
             loading={isMutPen}
             games={data.games}
+            locale={data.locale}
           />
           {isEventComing(data) && data.isActive ? (
             <Text size="sm" c="red">
-              Эвент еще только ожидается. Ставки на него пока что не
+              Ивент еще только ожидается. Ставки на него пока что не
               принимаются.
             </Text>
           ) : !data.isActive ? (
             <Text size="sm" c="red">
-              Эвент уже состоялся. Ставки на него не принимаются.
+              Ивент уже состоялся. Ставки на него не принимаются.
             </Text>
           ) : (
             <>

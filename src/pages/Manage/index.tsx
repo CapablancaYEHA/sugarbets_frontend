@@ -65,7 +65,7 @@ export const Manage = () => {
       {isSuccess ? (
         <>
           <Select
-            label="Текущие эвенты"
+            label="Текущие ивенты"
             placeholder="Выбрать"
             data={currEvents?.map((a) => ({
               value: a.innerId,
@@ -78,9 +78,10 @@ export const Manage = () => {
             opened={opened}
             close={close}
             sbmtCallback={handleSubmit}
-            title="Подписать master-bet на эвент"
+            title="Подписать master-bet на ивент"
             loading={isMutPen}
             games={singleData?.games!}
+            locale={singleData?.locale}
           />
           {isMutSuc ? (
             <>

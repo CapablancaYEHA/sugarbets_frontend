@@ -54,8 +54,10 @@ export const getProfile = (id: string) => {
     .then((response) => response.data);
 };
 
-export const getPlayers = (game: string) =>
-  instance.get(`/players?game=${game}`).then((response) => response.data);
+export const getPlayers = (game: string, locale: "RU" | "INT") =>
+  instance
+    .get(`/players?game=${game}&locale=${locale}`)
+    .then((response) => response.data);
 
 export const getEvent = (id: string) => {
   const token = localStorage.getItem("TOKEN") || "";

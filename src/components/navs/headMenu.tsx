@@ -21,7 +21,7 @@ export const HeadMenu: FC<IProps> = ({ id }) => {
       shadow="md"
       width={164}
       transitionProps={{ transition: "rotate-left", duration: 150 }}
-      trigger="click-hover"
+      trigger="hover"
       loop={false}
       withinPortal={false}
       trapFocus={false}
@@ -69,7 +69,7 @@ export const HeadMenu: FC<IProps> = ({ id }) => {
         <Space h="xs" />
         <Menu.Divider />
         <Menu.Item href="/events" component="a">
-          Эвенты
+          Ивенты
         </Menu.Item>
         {data?.role === "admin" ? (
           <Menu.Item href="/manage" component="a">

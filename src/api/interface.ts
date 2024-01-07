@@ -24,6 +24,10 @@ export interface IPlayersResponse {
 type IPrizePool = {
   [key: string]: number;
 };
+type IBetBod = {
+  [key: string]: string | string[];
+};
+// FIXME Поправить game на ENUM
 export interface IEventsResponse {
   betsArray?: string[]; // айдишники ставок
   eventTitle: string;
@@ -34,6 +38,8 @@ export interface IEventsResponse {
   org?: string;
   info?: string;
   prizePool: IPrizePool;
+  masterBetbody: IBetBod;
+  locale: "RU" | "INT";
 }
 
 export interface ICloseEventReq {
@@ -44,4 +50,9 @@ export interface ICloseEventReq {
 
 export interface ICreateBetReq extends ICloseEventReq {
   userId: string;
+}
+
+export interface IPlayersReq {
+  game: string;
+  locale: "RU" | "INT";
 }

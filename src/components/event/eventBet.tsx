@@ -4,11 +4,11 @@ import {
   Modal,
   Button,
   Table,
-  Loader,
   Space,
   Text,
   Radio,
   Group,
+  Skeleton,
 } from "@mantine/core";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -23,6 +23,7 @@ interface IProp {
   title?: string;
   loading?: boolean;
   games: string[] | null;
+  locale?: "RU" | "INT";
 }
 export const EventBet: FC<IProp> = ({
   opened,
@@ -31,6 +32,7 @@ export const EventBet: FC<IProp> = ({
   title = "Ставка на топ8",
   loading,
   games,
+  locale = "RU",
 }) => {
   const { register, handleSubmit, control, reset } = useForm({
     resolver: yupResolver(schema),
@@ -38,7 +40,7 @@ export const EventBet: FC<IProp> = ({
   });
   const curGame = useWatch({ control, name: "game", defaultValue: "T8" });
 
-  const { data, isSuccess, isPending } = usePlayers(curGame);
+  const { data, isSuccess, isPending } = usePlayers(curGame, locale);
 
   const onClose = () => {
     reset();
@@ -61,7 +63,7 @@ export const EventBet: FC<IProp> = ({
       centered
       transitionProps={{ transition: "fade", duration: 200 }}
     >
-      {isPending ? <Loader /> : null}
+      {isPending ? <Skeleton height={550} /> : null}
       {isSuccess ? (
         <>
           <Group>
@@ -78,14 +80,14 @@ export const EventBet: FC<IProp> = ({
             ))}
           </Group>
           <Space h="lg" />
-          <Table striped>
+          <Table striped disabled>
             <Table.Thead>
               <Table.Tr>
                 <Table.Th>Место</Table.Th>
                 <Table.Th>Игрок</Table.Th>
               </Table.Tr>
             </Table.Thead>
-            <Table.Tbody>
+            <Table.Tbody disabled>
               {betDraftArr.map((a, ind) => (
                 <Table.Tr key={ind + 1}>
                   <Table.Td c="base.7" fw="500">
