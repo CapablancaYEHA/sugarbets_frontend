@@ -42,11 +42,10 @@ export class ErrorBoundary extends Component<
           </Title>
           <Space h="xl" />
           <Button
-            component="a"
-            href="/"
             variant="outline"
             fullWidth={false}
             style={{ width: "min-content" }}
+            onClick={() => window.location.replace("/")}
           >
             Вернуться на главную
           </Button>

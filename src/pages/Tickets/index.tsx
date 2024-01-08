@@ -93,6 +93,18 @@ export const Tickets = () => {
           Информация о количестве Тикетов обновляется не сразу.
         </Highlight>
       </Text>
+      <Space h="lg" />
+      <Space h="lg" />
+      <Text
+        size="md"
+        pt="xs"
+        style={(theme) => ({
+          borderTop: `1px solid ${theme.colors.base[1]}`,
+        })}
+      >
+        Если при заполнении топ8 вы не нашли желаемого игрока - напишите нам, мы
+        оперативно добавим и сделаем его доступным.
+      </Text>
       <Text
         size="xs"
         pt="xs"

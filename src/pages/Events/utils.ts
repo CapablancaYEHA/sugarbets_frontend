@@ -17,4 +17,4 @@ export const isEventComing = (ev) => {
 };
 
 export const sortByAsc = (a: IEventsResponse, b: IEventsResponse) =>
-  compareAsc(a.startDate, b.startDate);
+  compareAsc(a.tourEnd, b.tourEnd);

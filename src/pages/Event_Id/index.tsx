@@ -13,6 +13,7 @@ import { prepSbt } from "./utils";
 import { useLogout } from "../../../utils/useLogout";
 import { notif } from "../../../utils/notif";
 import styles from "./styles.module.scss";
+import { EventResult } from "../../components/event/eventResult";
 
 export const EventId = () => {
   const userString = localStorage.getItem("USER") || "";
@@ -108,14 +109,19 @@ export const EventId = () => {
             locale={data.locale}
           />
           {isEventComing(data) && data.isActive ? (
-            <Text size="sm" c="red">
-              Ивент еще только ожидается. Ставки на него пока что не
-              принимаются.
+            <Text size="sm" c="base.5" fw={500}>
+              Ставки на предстоящий ивент пока что не принимаются. Готовьтесь к
+              открытию приёма ставок.
             </Text>
           ) : !data.isActive ? (
-            <Text size="sm" c="red">
-              Ивент уже состоялся. Ставки на него не принимаются.
-            </Text>
+            <>
+              <Text size="sm" c="base.5" fw={500}>
+                Ивент уже состоялся. Ставки на него не принимаются.
+              </Text>
+              <Space h="lg" />
+              <Space h="lg" />
+              <EventResult ev={data} />
+            </>
           ) : (
             <>
               <Space h="lg" />

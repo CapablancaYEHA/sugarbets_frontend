@@ -15,7 +15,6 @@ import {
   ICloseEventReq,
   ICreateBetReq,
   IEventsResponse,
-  IPlayersReq,
   IPlayersResponse,
   IProfile,
   IUserLoginRequest,

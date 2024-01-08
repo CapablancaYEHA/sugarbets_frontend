@@ -80,14 +80,14 @@ export const EventBet: FC<IProp> = ({
             ))}
           </Group>
           <Space h="lg" />
-          <Table striped disabled>
+          <Table striped>
             <Table.Thead>
               <Table.Tr>
                 <Table.Th>Место</Table.Th>
                 <Table.Th>Игрок</Table.Th>
               </Table.Tr>
             </Table.Thead>
-            <Table.Tbody disabled>
+            <Table.Tbody>
               {betDraftArr.map((a, ind) => (
                 <Table.Tr key={ind + 1}>
                   <Table.Td c="base.7" fw="500">

@@ -34,11 +34,15 @@ export interface IEventsResponse {
   games: string[];
   innerId: string;
   isActive: boolean;
-  startDate: string; // "2023-12-27T13:00:00.000Z"
+  startDate: string; // "2023-12-27T13:00:00.000Z" когда начинаем принимать ставки
+  tourEnd: string; // дата проведения события + ориентир когда ставки уже не принимаются
   org?: string;
   info?: string;
   prizePool: IPrizePool;
-  masterBetbody: IBetBod;
+  masterBetbody: IBetBod | null;
+  winners: {
+    [key: string]: string;
+  } | null;
   locale: "RU" | "INT";
 }
 

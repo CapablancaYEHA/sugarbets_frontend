@@ -7,6 +7,10 @@ export const ProtectedRoute = (props) => {
   const { isAuth } = useAuth();
 
   if (!isAuth) {
+    const reqLoc = location.path;
+    if (reqLoc != null && reqLoc !== "/") {
+      localStorage.setItem("URI", reqLoc);
+    }
     location.route("/login");
   }
 

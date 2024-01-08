@@ -27,6 +27,7 @@ export function Login() {
   } = useForm();
 
   const { error, isError, isPending, mutate } = useLogin();
+  const uri = localStorage.getItem("URI") || "/";
 
   const onSubmit = (sbmtData) => {
     mutate(
@@ -39,7 +40,7 @@ export function Login() {
           localStorage.setItem("TOKEN", res.token);
           localStorage.setItem("USER", res.userId);
           setAuth(true);
-          setTimeout(() => location.route("/"), 300);
+          setTimeout(() => location.route(uri), 300);
         },
       }
     );

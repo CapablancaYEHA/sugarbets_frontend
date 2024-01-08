@@ -4,12 +4,13 @@ interface IProp {
   c: "red" | "green";
   m?: string;
   t?: string | null;
+  close?: number;
 }
-export const notif = ({ c, m, t }: IProp) =>
+export const notif = ({ c, m, t, close = 5000 }: IProp) =>
   notifications.show({
     title: t,
     message: m,
     color: c,
-    autoClose: 5000,
+    autoClose: close,
     withBorder: true,
   });

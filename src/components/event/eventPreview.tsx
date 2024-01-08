@@ -20,8 +20,11 @@ export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
           />
         </div>
         <Stack>
+          <Text size="md" fw={500} c="base.5">
+            {ev.eventTitle}
+          </Text>
           <Text size="md" fw={500}>
-            {showDate(ev.startDate)}
+            {showDate(ev.tourEnd)}
           </Text>
           <Text size="sm" c="gray.6">
             {ev.info ?? "Нет организаторской информации"}

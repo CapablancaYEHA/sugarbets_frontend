@@ -53,7 +53,12 @@ export const Manage = () => {
           notif({ c: "green", m: "Всё посчитано" });
         },
         onError: (e) =>
-          notif({ c: "red", m: e?.message, t: "Проблема с мастер-ставкой" }),
+          notif({
+            c: "red",
+            m: e?.message,
+            t: "Проблема с мастер-ставкой. Возможно в ДБ все-таки появилась запись, а фронт не дождался результатов",
+            close: 10000,
+          }),
       }
     );
   };
@@ -69,7 +74,7 @@ export const Manage = () => {
             placeholder="Выбрать"
             data={currEvents?.map((a) => ({
               value: a.innerId,
-              label: `${a.eventTitle}___начало ${showDate(a.startDate)}`,
+              label: `${a.eventTitle}___ окончание ${showDate(a.tourEnd)}`,
             }))}
             onChange={((_value) => setSelected(_value)) as any}
             clearable

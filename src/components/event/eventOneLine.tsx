@@ -9,7 +9,7 @@ export const EventOneLine: FC<{ ev: IEventsResponse }> = ({ ev }) => {
     <Anchor href={`/events/${ev.innerId}`} inherit underline="never">
       <Group gap="xl" wrap="nowrap" align="baseline">
         <Text miw={110}>{ev.eventTitle}</Text>
-        <Text miw={110}>{showDate(ev.startDate)}</Text>
+        <Text miw={110}>{showDate(ev.tourEnd)}</Text>
         <Text>{ev.games?.map((a) => titleByGame[a]).join(", ")}</Text>
       </Group>
     </Anchor>

@@ -11,6 +11,10 @@ export const EventFull: FC<{ ev: IEventsResponse }> = ({ ev }) => {
         Ивент
       </Title>
       <Space h="lg" />
+      <Text size="xl" fw={500} ta="center">
+        {ev.eventTitle}
+      </Text>
+      <Space h="md" />
       <Stack align="center" gap="xl">
         <Image
           src={logoByOrg[ev.org ?? ""]}
@@ -18,8 +22,8 @@ export const EventFull: FC<{ ev: IEventsResponse }> = ({ ev }) => {
           fallbackSrc="https://placehold.co/300x300?text=Organisator"
         />
         <Group wrap="nowrap" grow>
-          <Text size="xl" ta="right" fw={500} style={{ whiteSpace: "nowrap" }}>
-            {showDate(ev.startDate)}
+          <Text size="lg" ta="right" fw={500} style={{ whiteSpace: "nowrap" }}>
+            {showDate(ev.tourEnd)}
           </Text>
           <Text size="md" c="gray.6" style={{ userSelect: "text" }}>
             {ev.info ?? "Нет организаторской информации"}

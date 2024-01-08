@@ -92,6 +92,7 @@ export const closeEvent = ({ betBody, game, eventId }) => {
       "/events/close",
       { betBody, game, eventId },
       {
+        timeout: 10000,
         headers: {
           Authorization: `Bearer ${token}`,
         },
