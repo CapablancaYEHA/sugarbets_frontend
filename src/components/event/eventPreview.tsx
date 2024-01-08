@@ -16,7 +16,6 @@ export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
           <Image
             src={logoByOrg[ev.org ?? ""]}
             fallbackSrc="https://placehold.co/300x300?text=Organisator"
-            maw={88}
           />
         </div>
         <Stack>
