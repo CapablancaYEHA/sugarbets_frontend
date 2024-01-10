@@ -7,6 +7,7 @@ import { titleByGame } from "./const";
 
 export const EventResult: FC<{ ev: IEventsResponse }> = ({ ev }) => {
   const { masterBetbody, winners } = ev;
+
   const isShow =
     !isEmpty(masterBetbody) &&
     masterBetbody != null &&
@@ -44,14 +45,12 @@ export const EventResult: FC<{ ev: IEventsResponse }> = ({ ev }) => {
                   {Object.entries(masterBetbody?.[a])?.map(
                     ([key, val], index) => {
                       return Array.isArray(val) ? (
-                        val.map((m, inx) => (
-                          <Table.Tr key={m}>
-                            <Table.Td c="base.7" fw="500">
-                              {key[inx]}
-                            </Table.Td>
-                            <Table.Td>{m}</Table.Td>
-                          </Table.Tr>
-                        ))
+                        <Table.Tr key={`${index}_${val.join("_")}`}>
+                          <Table.Td c="base.7" fw="500">
+                            {key.split("").join("-")}
+                          </Table.Td>
+                          <Table.Td>{val.join(", ")}</Table.Td>
+                        </Table.Tr>
                       ) : (
                         <Table.Tr key={`${index}_${val}`}>
                           <Table.Td c="base.7" fw="500">

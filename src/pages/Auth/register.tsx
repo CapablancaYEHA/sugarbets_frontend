@@ -62,7 +62,6 @@ export function Register() {
           })}
           label="Email"
           error={errors.userMail && <div>Формат мыла неверный</div>}
-          required
         />
         <Space h="lg" />
         <PasswordInput
@@ -72,7 +71,6 @@ export function Register() {
               /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@_$!%*?&-])[A-Za-z\d@_$!%*?&-]{8,}$/,
           })}
           label="Пароль"
-          required
           error={
             errors.userPass && (
               <div>
@@ -88,10 +86,12 @@ export function Register() {
             required: true,
             pattern: /^[a-zA-Zа-яА-Я0-9_-]{3,20}$/,
             maxLength: 20,
-            min: 3,
+            min: {
+              value: 3,
+              message: "Минимум 3 символа",
+            },
           })}
           label="Отображаемое имя"
-          required
           error={
             errors.userName && (
               <div>От 3 до 20 символов (разрешены - и _), без пробелов</div>

@@ -21,14 +21,14 @@ export const EventFull: FC<{ ev: IEventsResponse }> = ({ ev }) => {
           w="88"
           fallbackSrc="https://placehold.co/300x300?text=Organisator"
         />
-        <Group wrap="nowrap" grow>
+        <Stack wrap="nowrap" grow align="center">
           <Text size="lg" ta="right" fw={500} style={{ whiteSpace: "nowrap" }}>
             {showDate(ev.tourEnd)}
           </Text>
           <Text size="md" c="gray.6" style={{ userSelect: "text" }}>
             {ev.info ?? "Нет организаторской информации"}
           </Text>
-        </Group>
+        </Stack>
       </Stack>
     </>
   );

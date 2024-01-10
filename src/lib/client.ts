@@ -5,12 +5,9 @@ const url = isDev()
   ? "http://localhost:4000/api"
   : "http://89.223.31.81:4000/api";
 
-const controller = new AbortController();
-
 const instance = axios.create({
   baseURL: url,
-  timeout: 4000,
-  signal: controller.signal,
+  timeout: 5000,
 });
 
 // FIXME

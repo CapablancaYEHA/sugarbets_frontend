@@ -69,7 +69,6 @@ export function Login() {
             required: true,
             pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
           })}
-          required
           label="Email"
           error={errors.userMail && <div>Формат мыла неверный</div>}
           style={{ width: "100%" }}
@@ -80,7 +79,6 @@ export function Login() {
             required: true,
             minLength: 8,
           })}
-          required
           label="Пароль"
           error={
             errors.userPass && (

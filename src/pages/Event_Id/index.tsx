@@ -1,9 +1,17 @@
 import { useEffect, useState } from "preact/hooks";
 import { useRoute } from "preact-iso";
-import { Box, LoadingOverlay, Space, Text, Button, Title } from "@mantine/core";
+import {
+  Box,
+  LoadingOverlay,
+  Space,
+  Text,
+  Button,
+  Title,
+  Group,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
-import { useCreateBet, useSingleEvent } from "../../api/queryHooks";
+import { useCreateBet, useProfile, useSingleEvent } from "../../api/queryHooks";
 import { EventFull } from "../../components/event/eventFull";
 import { EventBet } from "../../components/event/eventBet";
 import { Pool } from "../../components/event/pool";
@@ -12,13 +20,15 @@ import socket from "../../lib/ws_connection";
 import { prepSbt } from "./utils";
 import { useLogout } from "../../../utils/useLogout";
 import { notif } from "../../../utils/notif";
-import styles from "./styles.module.scss";
 import { EventResult } from "../../components/event/eventResult";
+import styles from "./styles.module.scss";
 
 export const EventId = () => {
   const userString = localStorage.getItem("USER") || "";
   const { params } = useRoute();
   const [opened, { open, close }] = useDisclosure(false);
+  const { data: userData } = useProfile(userString!, Boolean(userString));
+  const tikts = userData?.tickets;
   const { data, isPending, isError, error, isSuccess } = useSingleEvent(
     params.id
   );
@@ -138,13 +148,20 @@ export const EventId = () => {
               <Space h="lg" />
               <Space h="lg" />
               <Space h="lg" />
-              <Button
-                onClick={open}
-                style={{ alignSelf: "flex-end" }}
-                loading={isMutPen}
-              >
-                Предсказать топ8
-              </Button>
+              <Group justify="end">
+                {tikts === 0 ? (
+                  <Text size="xs" c="base.9">
+                    Без Тикетов на балансе невозможно сделать ставку
+                  </Text>
+                ) : null}
+                <Button
+                  onClick={open}
+                  loading={isMutPen}
+                  disabled={tikts === 0}
+                >
+                  Предсказать топ8
+                </Button>
+              </Group>
             </>
           )}
         </>
