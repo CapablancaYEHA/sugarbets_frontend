@@ -8,10 +8,10 @@ import {
   showDate,
   titleByGame,
 } from "../../components/event/const";
+import { BetSingle } from "../../components/bet/betSIngle";
 import { useEvents, useUserBets } from "../../api/queryHooks";
 
 import styles from "./styles.module.scss";
-import { BetSingle } from "../../components/bet/betSIngle";
 
 export const Bets = () => {
   const location = useLocation();
@@ -22,7 +22,7 @@ export const Bets = () => {
     id,
     Boolean(id)
   );
-  const { data: evData, isSuccess: evIsSuc } = useEvents();
+  const { data: evData } = useEvents();
   useLogout(isError, error);
 
   const evInfo = evData?.reduce(
@@ -34,7 +34,7 @@ export const Bets = () => {
     <Box className={styles.wrapper} component="section" py="lg">
       <Title order={2}>Ваши ставки</Title>
       <Space h="lg" />
-      {evIsSuc && isSuccess ? (
+      {isSuccess && data.length > 0 ? (
         <>
           <Table striped>
             <Table.Thead>
