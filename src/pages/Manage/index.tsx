@@ -11,20 +11,20 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 
 import { useCloseEvent, useEvents, useSingleEvent } from "../../api/queryHooks";
-import { isEventStarted } from "../Events/utils";
+import { isWaitResults } from "../Events/utils";
 import { showDate } from "../../components/event/const";
 import { EventBet } from "../../components/event/eventBet";
 import { prepSbt } from "../Event_Id/utils";
 import { useLogout } from "../../../utils/useLogout";
+import { notif } from "../../../utils/notif";
 
 import styles from "./styles.module.scss";
-import { notif } from "../../../utils/notif";
 
 export const Manage = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [selected, setSelected] = useState<string | null>(null);
   const { data, error, isError, isPending, isSuccess } = useEvents();
-  const currEvents = data?.filter(isEventStarted);
+  const closable = data?.filter(isWaitResults);
   const { data: singleData, isSuccess: isSingleSucc } = useSingleEvent(
     selected!,
     selected != null
@@ -70,9 +70,9 @@ export const Manage = () => {
       {isSuccess ? (
         <>
           <Select
-            label="Текущие ивенты"
+            label="Доступные для подведения итогов"
             placeholder="Выбрать"
-            data={currEvents?.map((a) => ({
+            data={closable?.map((a) => ({
               value: a.innerId,
               label: `${a.eventTitle}___ окончание ${showDate(a.tourEnd)}`,
             }))}
@@ -107,7 +107,9 @@ export const Manage = () => {
             Закрыть дисциплину
           </Button>
         </>
-      ) : null}
+      ) : (
+        <Text size="md">Эвенты не загрузились</Text>
+      )}
       <LoadingOverlay
         visible={isPending}
         zIndex={30}

@@ -59,3 +59,6 @@ export const schema = yup
 
 export const showDate = (a: string) =>
   format(a ?? 0, "d MMMM y", { locale: ru });
+
+export const showDateWhours = (a: string) =>
+  format(a ?? 0, "d MMMM y HH:mm:ss", { locale: ru });

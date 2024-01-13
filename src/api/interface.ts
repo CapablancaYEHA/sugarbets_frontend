@@ -14,6 +14,7 @@ export interface IProfile {
   betsArray?: string[];
   paymentsArray?: string[];
   role: "user" | "admin";
+  lastLogin: string;
 }
 
 export interface IPlayersResponse {
@@ -24,7 +25,7 @@ export interface IPlayersResponse {
 type IPrizePool = {
   [key: string]: number;
 };
-type IBetBod = {
+export type IBetBod = {
   [key: string]: string | string[];
 };
 // FIXME Поправить game на ENUM
@@ -39,7 +40,7 @@ export interface IEventsResponse {
   org?: string;
   info?: string;
   prizePool: IPrizePool;
-  masterBetbody: IBetBod | null;
+  masterBetbody: { [key: string]: IBetBod } | null;
   winners: {
     [key: string]: string;
   } | null;
@@ -54,6 +55,18 @@ export interface ICloseEventReq {
 
 export interface ICreateBetReq extends ICloseEventReq {
   userId: string;
+}
+
+export interface IBetRes {
+  innerId: string;
+  authorName: string[]; //один чел в массиве
+  authorId: string;
+  game: string;
+  forEventName: [string]; // one elem
+  forEventId: [string]; // one elem
+  isActive: boolean[]; // one elem
+  dateCreated: string; // "2023-12-27T13:00:00.000Z"
+  betBody: IBetBod;
 }
 
 export interface IPlayersReq {

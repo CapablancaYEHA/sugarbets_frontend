@@ -37,6 +37,7 @@ export const EventBet: FC<IProp> = ({
   const { register, handleSubmit, control, reset } = useForm({
     resolver: yupResolver(schema),
     defaultValues: { game: "T8" },
+    mode: "onChange",
   });
   const curGame = useWatch({ control, name: "game", defaultValue: "T8" });
 

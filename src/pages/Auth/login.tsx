@@ -53,7 +53,7 @@ export function Login() {
   }, [isError, error]);
 
   return (
-    <Box className={styles.wrap}>
+    <Box className={styles.wrap} py="lg">
       <form id="form_login" onSubmit={handleSubmit(onSubmit, undefined)}>
         <Title order={2}>Вход</Title>
         <Space h="md" />

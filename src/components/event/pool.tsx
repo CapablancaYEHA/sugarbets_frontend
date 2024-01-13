@@ -2,7 +2,7 @@ import { useSpring, animated } from "react-spring";
 import { Title, Stack, Image } from "@mantine/core";
 import { logoByGame } from "./const";
 
-export const Pool = ({ amount, game }) => {
+export const Pool = ({ amount, game, size = 1 }) => {
   const { number } = useSpring({
     number: amount,
     from: { number: 0 },
@@ -17,7 +17,7 @@ export const Pool = ({ amount, game }) => {
         />
       </div>
 
-      <Title order={1} c="base.5" ta="center">
+      <Title order={size as any} c="base.5" ta="center">
         <animated.span>
           {number.to((n) => Number(n.toFixed(0)).toLocaleString("en-US"))}
         </animated.span>

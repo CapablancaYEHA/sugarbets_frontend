@@ -7,7 +7,7 @@ const url = isDev()
 
 const instance = axios.create({
   baseURL: url,
-  timeout: 5000,
+  timeout: 10000,
 });
 
 // FIXME
@@ -82,6 +82,28 @@ export const createBet = ({ betBody, game, userId, eventId }) => {
     .then((response) => response.data);
 };
 
+export const getUserBets = (user: string) => {
+  const token = localStorage.getItem("TOKEN") || "";
+  return instance
+    .get(`/bets?user=${user}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data);
+};
+
+export const getBet = (id: string) => {
+  const token = localStorage.getItem("TOKEN") || "";
+  return instance
+    .get(`/bets/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => response.data);
+};
+
 export const closeEvent = ({ betBody, game, eventId }) => {
   const token = localStorage.getItem("TOKEN") || "";
   return instance
@@ -89,7 +111,6 @@ export const closeEvent = ({ betBody, game, eventId }) => {
       "/events/close",
       { betBody, game, eventId },
       {
-        timeout: 10000,
         headers: {
           Authorization: `Bearer ${token}`,
         },

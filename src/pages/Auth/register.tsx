@@ -44,7 +44,7 @@ export function Register() {
   }, [isError, error]);
 
   return (
-    <Box className={styles.wrap} component="section">
+    <Box className={styles.wrap} component="section" py="lg">
       <form id="form_register" onSubmit={handleSubmit(onSubmit, undefined)}>
         <Title order={2}>Регистрация</Title>
         <Space h="md" />

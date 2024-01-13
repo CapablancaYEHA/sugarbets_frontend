@@ -1,24 +1,28 @@
 import { FC, Fragment } from "preact/compat";
-import { Table, Space, Text, Group, Title } from "@mantine/core";
+import { Stack, Space, Text, Group, Title } from "@mantine/core";
 import { isEmpty, uniq } from "lodash-es";
 
 import { IEventsResponse } from "../../api/interface";
 import { titleByGame } from "./const";
+import { ResultTable } from "./resultTable";
 
-export const EventResult: FC<{ ev: IEventsResponse }> = ({ ev }) => {
+interface IProp {
+  ev: IEventsResponse;
+}
+export const EventResult: FC<IProp> = ({ ev }) => {
   const { masterBetbody, winners } = ev;
 
-  const isShow =
+  const isShowRes =
     !isEmpty(masterBetbody) &&
     masterBetbody != null &&
     !isEmpty(winners) &&
     winners != null;
   const checkArr = Object.keys(titleByGame);
 
-  return isShow ? (
+  return isShowRes ? (
     <>
       <Title order={3} style={{ textAlign: "center" }}>
-        Результаты, победители
+        Результаты турнира
       </Title>
       <Space h="lg" />
       {checkArr.map((a, ind) =>
@@ -30,42 +34,26 @@ export const EventResult: FC<{ ev: IEventsResponse }> = ({ ev }) => {
               w="100%"
               miw={0}
               justify="space-around"
+              gap="xs"
             >
-              <Text size="xl" fw="500" c="base.7">
+              <Text
+                size="xl"
+                fw="500"
+                ta="center"
+                c="base.7"
+                style={{ flex: "1 1 100%" }}
+              >
                 {titleByGame[a]}
               </Text>
-              <Table striped gap="xl" maw="300px">
-                <Table.Thead>
-                  <Table.Tr>
-                    <Table.Th>Место</Table.Th>
-                    <Table.Th>Игрок</Table.Th>
-                  </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>
-                  {Object.entries(masterBetbody?.[a])?.map(
-                    ([key, val], index) => {
-                      return Array.isArray(val) ? (
-                        <Table.Tr key={`${index}_${val.join("_")}`}>
-                          <Table.Td c="base.7" fw="500">
-                            {key.split("").join("-")}
-                          </Table.Td>
-                          <Table.Td>{val.join(", ")}</Table.Td>
-                        </Table.Tr>
-                      ) : (
-                        <Table.Tr key={`${index}_${val}`}>
-                          <Table.Td c="base.7" fw="500">
-                            {key}
-                          </Table.Td>
-                          <Table.Td>{val}</Table.Td>
-                        </Table.Tr>
-                      );
-                    }
-                  )}
-                </Table.Tbody>
-              </Table>
-              <Text size="xl" fw="500">
-                {uniq(winners[a].split(",")).join(", ")}
-              </Text>
+              <ResultTable maw="300px" betBody={masterBetbody?.[a]} />
+              <Stack style={{ flex: "1 1 100%" }}>
+                <Text size="xl" fw="500" ta="center" c="base.7">
+                  Победители ставок
+                </Text>
+                <Text size="md" fw="500" ta="center">
+                  {uniq(winners[a].split(",")).join(", ")}
+                </Text>
+              </Stack>
             </Group>
             <Space h="xl" />
           </Fragment>

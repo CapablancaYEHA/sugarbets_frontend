@@ -71,6 +71,9 @@ export const HeadMenu: FC<IProps> = ({ id }) => {
         <Menu.Item href="/events" component="a">
           Ивенты
         </Menu.Item>
+        <Menu.Item href="/bets" component="a">
+          Ставки
+        </Menu.Item>
         {data?.role === "admin" ? (
           <Menu.Item href="/manage" component="a">
             Админка

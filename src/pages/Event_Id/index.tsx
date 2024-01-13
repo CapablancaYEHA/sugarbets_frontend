@@ -15,13 +15,13 @@ import { useCreateBet, useProfile, useSingleEvent } from "../../api/queryHooks";
 import { EventFull } from "../../components/event/eventFull";
 import { EventBet } from "../../components/event/eventBet";
 import { Pool } from "../../components/event/pool";
-import { isEventComing } from "../Events/utils";
 import socket from "../../lib/ws_connection";
 import { prepSbt } from "./utils";
 import { useLogout } from "../../../utils/useLogout";
 import { notif } from "../../../utils/notif";
 import { EventResult } from "../../components/event/eventResult";
 import styles from "./styles.module.scss";
+import { isWaitResults } from "../Events/utils";
 
 export const EventId = () => {
   const userString = localStorage.getItem("USER") || "";
@@ -29,10 +29,10 @@ export const EventId = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const { data: userData } = useProfile(userString!, Boolean(userString));
   const tikts = userData?.tickets;
+
   const { data, isPending, isError, error, isSuccess } = useSingleEvent(
     params.id
   );
-
   const { mutate, isPending: isMutPen } = useCreateBet();
 
   useLogout(isError, error);
@@ -65,7 +65,6 @@ export const EventId = () => {
     );
   };
 
-  //   FIXME Тут не хватает условия запуска хуков и сокетов по активности ивента
   useEffect(() => {
     if (isSuccess) {
       setPrize(
@@ -76,16 +75,18 @@ export const EventId = () => {
   }, [isSuccess, data?.prizePool, data?.games]);
 
   useEffect(() => {
-    socket.emit("eventPageVisit", {
-      eventId: params.id,
-    });
-
-    return () => {
-      socket.emit("eventPageLeave", {
+    if (data?.isActive) {
+      socket.emit("eventPageVisit", {
         eventId: params.id,
       });
-    };
-  }, [params.id]);
+
+      return () => {
+        socket.emit("eventPageLeave", {
+          eventId: params.id,
+        });
+      };
+    }
+  }, [data?.isActive, params.id]);
 
   useEffect(() => {
     socket.on("betUpdateResponse", (payload) => {
@@ -95,6 +96,8 @@ export const EventId = () => {
       }));
     });
   }, []);
+
+  const isWaiting = isSuccess ? isWaitResults(data) : true;
 
   return (
     <Box
@@ -118,16 +121,25 @@ export const EventId = () => {
             games={data.games}
             locale={data.locale}
           />
-          {isEventComing(data) && data.isActive ? (
-            <Text size="sm" c="base.5" fw={500}>
-              Ставки на предстоящий ивент пока что не принимаются. Готовьтесь к
-              открытию приёма ставок.
-            </Text>
-          ) : !data.isActive ? (
+          {!data.isActive || isWaiting ? (
             <>
               <Text size="sm" c="base.5" fw={500}>
                 Ивент уже состоялся. Ставки на него не принимаются.
               </Text>
+              <Space h="lg" />
+              <Space h="lg" />
+              <Title order={4} ta="center" fw="500">
+                Итоговый призовой фонд
+                <Text size="xs" c="base.3">
+                  *на момент закрытия ставок
+                </Text>
+              </Title>
+              <Space h="lg" />
+              <div className={styles.pool}>
+                {data.games?.map((g, ind) => (
+                  <Pool key={ind} game={g} amount={prize?.[g] ?? 0} size={3} />
+                ))}
+              </div>
               <Space h="lg" />
               <Space h="lg" />
               <EventResult ev={data} />

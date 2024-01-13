@@ -4,8 +4,10 @@ import { Image, Stack, Text, Button } from "@mantine/core";
 
 import { IEventsResponse } from "../../api/interface";
 import { logoByGame, logoByOrg, showDate } from "./const";
-import styles from "./styles.module.scss";
+
 import { Carousel } from "../embla/carousel";
+import { linkify } from "../../../utils/linkify";
+import styles from "./styles.module.scss";
 
 export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
   const location = useLocation();
@@ -25,9 +27,14 @@ export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
           <Text size="md" fw={500}>
             {showDate(ev.tourEnd)}
           </Text>
-          <Text size="sm" c="gray.6">
-            {ev.info ?? "Нет организаторской информации"}
-          </Text>
+          <Text
+            size="sm"
+            c="gray.6"
+            dangerouslySetInnerHTML={{
+              __html: linkify(ev.info ?? "Нет организаторской информации"),
+            }}
+            className={styles.info}
+          />
         </Stack>
         <div>
           {ev.games?.length === 1 ? (

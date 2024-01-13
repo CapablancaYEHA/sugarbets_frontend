@@ -4,7 +4,7 @@ import { Box, Title, LoadingOverlay, Space, Text } from "@mantine/core";
 import { useEvents } from "../../api/queryHooks";
 import { EventPreview } from "../../components/event/eventPreview";
 import { EventOneLine } from "../../components/event/eventOneLine";
-import { isEventComing, isEventStarted, sortByAsc } from "./utils";
+import { isAbleToBet, isWaitResults, sortByAsc } from "./utils";
 import { useLogout } from "../../../utils/useLogout";
 import styles from "./styles.module.scss";
 
@@ -13,8 +13,8 @@ export const Events = () => {
 
   const sorted = (data ?? [])?.sort(sortByAsc);
   const pastEvents = sorted?.filter((a) => !a.isActive);
-  const currEvents = sorted?.filter(isEventStarted);
-  const comingEvents = sorted?.filter(isEventComing);
+  const currEvents = sorted?.filter(isAbleToBet);
+  const waitEvents = sorted?.filter(isWaitResults);
 
   useLogout(isError, error);
 
@@ -22,7 +22,7 @@ export const Events = () => {
     <Box className={styles.wrapper} component="section" py="lg">
       <Title order={2}>Ивенты</Title>
       <Space h="lg" />
-      <Title order={4}>Активные</Title>
+      <Title order={4}>Доступны к ставкам</Title>
       <Space h="md" />
       {currEvents.length ? (
         currEvents.map((a, ind) => (
@@ -35,16 +35,17 @@ export const Events = () => {
         <Text size="md">Нет активных Ивентов</Text>
       )}
       <Space h="xl" />
-      <Title order={4}>Предстоящие</Title>
-      <Space h="md" />
-      {comingEvents.length ? (
-        comingEvents.map((a) => <EventOneLine key={a.innerId} ev={a} />)
-      ) : (
-        <Text size="md">Нет предстоящих</Text>
-      )}
-      <Space h="xl" />
 
       <Box mt="auto">
+        {waitEvents.length ? (
+          <>
+            <Title order={4}>Ожидают результатов</Title>
+            {waitEvents.map((a) => (
+              <EventOneLine key={a.innerId} ev={a} />
+            ))}
+            <Space h="xl" />
+          </>
+        ) : null}
         <Title order={4}>Архив событий</Title>
         <Space h="md" />
         {pastEvents.length ? (

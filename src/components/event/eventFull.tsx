@@ -1,8 +1,10 @@
-import { Stack, Text, Image, Group, Title, Space } from "@mantine/core";
+import { Stack, Text, Image, Title, Space } from "@mantine/core";
 import { FC } from "preact/compat";
 
 import { logoByOrg, showDate } from "./const";
 import { IEventsResponse } from "../../api/interface";
+import { linkify } from "../../../utils/linkify";
+import styles from "./styles.module.scss";
 
 export const EventFull: FC<{ ev: IEventsResponse }> = ({ ev }) => {
   return (
@@ -25,9 +27,15 @@ export const EventFull: FC<{ ev: IEventsResponse }> = ({ ev }) => {
           <Text size="lg" ta="right" fw={500} style={{ whiteSpace: "nowrap" }}>
             {showDate(ev.tourEnd)}
           </Text>
-          <Text size="md" c="gray.6" style={{ userSelect: "text" }}>
-            {ev.info ?? "Нет организаторской информации"}
-          </Text>
+          <Text
+            size="md"
+            c="gray.6"
+            ta="center"
+            dangerouslySetInnerHTML={{
+              __html: linkify(ev.info ?? "Нет организаторской информации"),
+            }}
+            className={styles.info}
+          />
         </Stack>
       </Stack>
     </>
