@@ -19,7 +19,7 @@ export const BetSingle: FC<IProp> = ({ opened, close, id }) => {
       centered
       transitionProps={{ transition: "fade", duration: 200 }}
     >
-      {isPending ? <Skeleton height={550} /> : null}
+      {isPending ? <Skeleton height={450} /> : null}
       {isSuccess ? (
         <ResultTable betBody={data.betBody} game={data.game} />
       ) : null}

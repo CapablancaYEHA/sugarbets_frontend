@@ -1,4 +1,5 @@
 import { FC } from "preact/compat";
+import { useEffect } from "preact/hooks";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import {
   Modal,
@@ -50,7 +51,12 @@ export const EventBet: FC<IProp> = ({
 
   const onSubmit = (sbmtData) => {
     sbmtCallback(sbmtData);
+    reset();
   };
+
+  useEffect(() => {
+    return () => reset();
+  }, [reset]);
 
   return (
     <Modal

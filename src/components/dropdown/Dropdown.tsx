@@ -1,14 +1,8 @@
 import { useState } from "preact/hooks";
 import { FC } from "preact/compat";
-import {
-  Combobox,
-  InputBase,
-  useCombobox,
-  Input,
-  Group,
-  Pill,
-} from "@mantine/core";
+import { Combobox, InputBase, useCombobox, Input } from "@mantine/core";
 import { IPlayersResponse } from "../../api/interface";
+import { VirtList } from "./VirtList";
 import styles from "./styles.module.scss";
 
 interface IProp {
@@ -34,20 +28,9 @@ export const Dropdown: FC<IProp> = ({ items, id, onSelect, error }) => {
 
   const [value, setValue] = useState<string | null>(null);
 
-  const options = items
-    ?.filter((item) =>
-      item?.nick?.toLowerCase().includes(search?.toLowerCase()?.trim())
-    )
-    .map((item) => (
-      <Combobox.Option value={item.nick} key={`${item.nick}_${item.country}`}>
-        <Group justify="space-between">
-          <span>{item.nick}</span>
-          <Pill bg="base.3" c="white" size="xs" radius="sm">
-            {item.country}
-          </Pill>
-        </Group>
-      </Combobox.Option>
-    ));
+  const filtered = items?.filter((item) =>
+    item?.nick?.toLowerCase().includes(search?.toLowerCase()?.trim())
+  );
 
   return (
     <Combobox
@@ -80,13 +63,9 @@ export const Dropdown: FC<IProp> = ({ items, id, onSelect, error }) => {
           placeholder="Поиск по игрокам"
           id={`search_players_${id}`}
         />
-        <Combobox.Options
-          mah={200}
-          style={{ overflowY: "auto" }}
-          className={styles.scrollbox}
-        >
-          {options.length > 0 ? (
-            options
+        <Combobox.Options mah={200} className={styles.scrollbox}>
+          {filtered.length > 0 ? (
+            <VirtList list={filtered} />
           ) : (
             <Combobox.Empty>Нет совпадений</Combobox.Empty>
           )}
