@@ -1,9 +1,7 @@
 import axios from "axios";
 
 export const isDev = () => import.meta.env.DEV;
-const url = isDev()
-  ? "http://localhost:4000/api"
-  : "http://89.223.31.81:4000/api";
+const url = isDev() ? "http://localhost:80/api" : "https://89.223.31.81:443";
 
 const instance = axios.create({
   baseURL: url,
