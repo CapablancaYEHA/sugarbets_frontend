@@ -28,6 +28,11 @@ type IPrizePool = {
 export type IBetBod = {
   [key: string]: string | string[];
 };
+type IThumb = {
+  height: number;
+  url: string;
+  width: number;
+};
 // FIXME Поправить game на ENUM
 export interface IEventsResponse {
   betsArray?: string[]; // айдишники ставок
@@ -45,6 +50,17 @@ export interface IEventsResponse {
     [key: string]: string;
   } | null;
   locale: "RU" | "INT";
+  orgPic?: [
+    {
+      filename: string;
+      height: number;
+      id: string;
+      size: number;
+      thumbnails: { small: IThumb; large: IThumb; full: IThumb };
+      url: string;
+      width: number;
+    }
+  ];
 }
 
 export interface ICloseEventReq {

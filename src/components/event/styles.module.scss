@@ -35,7 +35,7 @@
         align-self: center;
         & > img {
           @media (min-width: 720px) {
-            max-width: 88px;
+            max-width: 100%;
           }
           max-width: 70%;
           margin: 0 auto;

@@ -3,7 +3,7 @@ import { useLocation } from "preact-iso";
 import { Image, Stack, Text, Button } from "@mantine/core";
 
 import { IEventsResponse } from "../../api/interface";
-import { logoByGame, logoByOrg, showDate } from "./const";
+import { logoByGame, showDate } from "./const";
 
 import { Carousel } from "../embla/carousel";
 import { linkify } from "../../../utils/linkify";
@@ -16,7 +16,9 @@ export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
       <section>
         <div>
           <Image
-            src={logoByOrg[ev.org ?? ""]}
+            h={100}
+            fit="contain"
+            src={ev.orgPic?.[0].url ?? ""}
             fallbackSrc="https://placehold.co/300x300?text=Organisator"
           />
         </div>

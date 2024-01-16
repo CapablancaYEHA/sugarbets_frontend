@@ -4,17 +4,10 @@ import * as yup from "yup";
 
 import logoT8 from "../../assets/logo_t8.png";
 import logoSF6 from "../../assets/logo_sf6.png";
-import logoOrgCup from "../../assets/logo_org_cup.png";
-import logoOrgTwt2023 from "../../assets/logo_org_twt2023.png";
 
 export const logoByGame = {
   T8: logoT8,
   SF6: logoSF6,
-};
-
-export const logoByOrg = {
-  getToCup: logoOrgCup,
-  TWT2023: logoOrgTwt2023,
 };
 
 export const titleByGame = {

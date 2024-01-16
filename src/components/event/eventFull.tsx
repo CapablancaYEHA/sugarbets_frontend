@@ -1,7 +1,7 @@
 import { Stack, Text, Image, Title, Space } from "@mantine/core";
 import { FC } from "preact/compat";
 
-import { logoByOrg, showDate } from "./const";
+import { showDate } from "./const";
 import { IEventsResponse } from "../../api/interface";
 import { linkify } from "../../../utils/linkify";
 import styles from "./styles.module.scss";
@@ -17,12 +17,14 @@ export const EventFull: FC<{ ev: IEventsResponse }> = ({ ev }) => {
         {ev.eventTitle}
       </Text>
       <Space h="md" />
-      <Stack align="center" gap="xl">
+      <div>
         <Image
-          src={logoByOrg[ev.org ?? ""]}
-          w="88"
+          src={ev.orgPic?.[0].url ?? ""}
+          h={100}
+          fit="contain"
           fallbackSrc="https://placehold.co/300x300?text=Organisator"
         />
+        <Space h="md" />
         <Stack wrap="nowrap" grow align="center">
           <Text size="lg" ta="right" fw={500} style={{ whiteSpace: "nowrap" }}>
             {showDate(ev.tourEnd)}
@@ -37,7 +39,7 @@ export const EventFull: FC<{ ev: IEventsResponse }> = ({ ev }) => {
             className={styles.info}
           />
         </Stack>
-      </Stack>
+      </div>
     </>
   );
 };

@@ -1,7 +1,9 @@
 import axios from "axios";
 
 export const isDev = () => import.meta.env.DEV;
-const url = isDev() ? "http://localhost:80/api" : "http://89.223.31.81:80/api";
+const url = isDev()
+  ? "http://localhost:80/api"
+  : "http://back.sugarbets.ru/api";
 
 const instance = axios.create({
   baseURL: url,
