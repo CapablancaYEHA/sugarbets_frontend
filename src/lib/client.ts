@@ -1,4 +1,6 @@
 import axios from "axios";
+import https from "https";
+import * as fs from "fs";
 
 export const isDev = () => import.meta.env.DEV;
 const url = isDev()
@@ -8,6 +10,10 @@ const url = isDev()
 const instance = axios.create({
   baseURL: url,
   timeout: 10000,
+  httpsAgent: new https.Agent({
+    cert: fs.readFileSync("../../etc/ssl/certs/sugarbets.ru.crt;"),
+    key: fs.readFileSync("../../etc/ssl/private/sugarbets.ru.key"),
+  }),
 });
 
 // FIXME
