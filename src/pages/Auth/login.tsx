@@ -27,7 +27,7 @@ export function Login() {
   } = useForm();
 
   const { error, isError, isPending, mutate } = useLogin();
-  const uri = localStorage.getItem("URI") || "/";
+  const uri = localStorage.getItem("URI") || "/events";
 
   const onSubmit = (sbmtData) => {
     mutate(

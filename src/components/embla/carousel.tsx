@@ -8,10 +8,11 @@ import "./embla.scss";
 
 type PropType = {
   options?: any;
-  images: any;
+  images?: any;
+  content?: any;
 };
 
-export const Carousel: FC<PropType> = ({ options = {}, images }) => {
+export const Carousel: FC<PropType> = ({ options = {}, images, content }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
@@ -49,18 +50,22 @@ export const Carousel: FC<PropType> = ({ options = {}, images }) => {
       <div className="embla">
         <div className="embla__viewport" ref={emblaRef}>
           <div className="embla__container">
-            {images.map((a, index) => (
-              <div className="embla__slide" key={index}>
-                <Image
-                  key={index}
-                  src={imageByIndex(index)}
-                  fallbackSrc="https://placehold.co/440x120?text=Game_logo"
-                />
-              </div>
-            ))}
+            {content
+              ? content?.map((a, index) => (
+                  <div className="embla__slide" key={index}>
+                    {a}
+                  </div>
+                ))
+              : images.map((a, index) => (
+                  <div className="embla__slide" key={index}>
+                    <Image
+                      src={imageByIndex(index)}
+                      fallbackSrc="https://placehold.co/440x120?text=Game_logo"
+                    />
+                  </div>
+                ))}
           </div>
         </div>
-
         <div className="embla__dots">
           {scrollSnaps.map((_, index) => (
             <DotButton

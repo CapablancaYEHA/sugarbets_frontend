@@ -45,9 +45,9 @@ export class ErrorBoundary extends Component<
             variant="outline"
             fullWidth={false}
             style={{ width: "min-content" }}
-            onClick={() => window.location.replace("/")}
+            onClick={() => window.location.replace("/events")}
           >
-            Вернуться на главную
+            К событиям
           </Button>
         </Box>
       </Box>

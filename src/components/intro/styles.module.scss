@@ -1,0 +1,23 @@
+.avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: gray;
+  min-width: 0;
+  flex: 0 0 auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: lightgray;
+}
+
+.slide {
+  border-radius: 16px;
+  border: 1px solid var(--mantine-color-base-1);
+}
+
+.pool {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}

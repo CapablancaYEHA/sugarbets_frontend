@@ -1,4 +1,4 @@
-import { useSpring, animated } from "react-spring";
+import { useSpring, animated } from "@react-spring/web";
 import { Title, Stack, Image } from "@mantine/core";
 import { logoByGame } from "./const";
 

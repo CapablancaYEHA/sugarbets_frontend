@@ -1,0 +1,14 @@
+$magicNumber: 80px;
+
+.rel {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.wrap {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-flow: column nowrap;
+}

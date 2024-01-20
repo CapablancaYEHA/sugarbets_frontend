@@ -9,7 +9,10 @@ import { Carousel } from "../embla/carousel";
 import { linkify } from "../../../utils/linkify";
 import styles from "./styles.module.scss";
 
-export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
+export const EventPreview: FC<{
+  ev: IEventsResponse;
+  hasB?: boolean;
+}> = ({ ev, hasB = true }) => {
   const location = useLocation();
   return (
     <div className={styles.box}>
@@ -49,14 +52,16 @@ export const EventPreview: FC<{ ev: IEventsResponse }> = ({ ev }) => {
           )}
         </div>
       </section>
-      <Button
-        variant="outline"
-        fullWidth={false}
-        mt="xl"
-        onClick={() => location.route(`/events/${ev.innerId}`)}
-      >
-        К ивенту
-      </Button>
+      {hasB ? (
+        <Button
+          variant="outline"
+          fullWidth={false}
+          mt="xl"
+          onClick={() => location.route(`/events/${ev.innerId}`)}
+        >
+          К ивенту
+        </Button>
+      ) : null}
     </div>
   );
 };

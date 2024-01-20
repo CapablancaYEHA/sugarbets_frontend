@@ -22,12 +22,12 @@ export const NotFound = () => {
         <Space h="xs" />
         <Button
           component="a"
-          href="/"
+          href="/events"
           variant="outline"
           fullWidth={false}
           style={{ width: "min-content" }}
         >
-          На главную
+          К событиям
         </Button>
       </Stack>
     </Box>

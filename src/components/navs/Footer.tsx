@@ -6,6 +6,17 @@ export function Footer() {
   return (
     <Box bg="base.5" component="footer" px="xl" className={styles.wrap}>
       <div style={{ gap: "24px", justifyContent: "flex-end" }}>
+        <Anchor
+          href="/rules"
+          underline="never"
+          c="white"
+          inline
+          size="xs"
+          fw={500}
+          mr="auto"
+        >
+          ПРАВИЛА
+        </Anchor>
         {footLinks.map((a) => (
           <Anchor
             href={a.href}
