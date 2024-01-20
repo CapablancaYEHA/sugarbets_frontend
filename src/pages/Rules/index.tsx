@@ -1,4 +1,4 @@
-import { Title, Box, Space } from "@mantine/core";
+import { Title, Box, Space, Stack } from "@mantine/core";
 
 import {
   contSlide1,
@@ -19,25 +19,25 @@ export const Rules = () => {
         Первый шаг
       </Title>
       <Space h="sm" />
-      {contSlide1}
+      <Stack gap="sm">{contSlide1}</Stack>
       <Space h="xl" />
       <Title order={3} style={{ textAlign: "center" }}>
         Выбрать Ивент
       </Title>
       <Space h="sm" />
-      {contSlide2}
+      <Stack gap="sm">{contSlide2}</Stack>
       <Space h="xl" />
       <Title order={3} style={{ textAlign: "center" }}>
         Сделать ставку
       </Title>
       <Space h="sm" />
-      {contSlide3}
+      <Stack gap="sm">{contSlide3}</Stack>
       <Space h="xl" />
       <Title order={3} style={{ textAlign: "center" }}>
         Ожидать результатов
       </Title>
       <Space h="sm" />
-      {contSlide4}
+      <Stack gap="sm">{contSlide4}</Stack>
       <Space h="xl" />
     </Box>
   );
